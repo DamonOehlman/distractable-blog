@@ -1,0 +1,64 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: Cross Platform Mobile Development - Why Bother
+created: 2010-08-06
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+It was almost a year ago now that I wrote a <a href="/coding/iphone-android-web-application-frameworks/">post comparing a few options in the area of cross platform mobile development</a>.  Over that year, a few new players have arrived on the scene (<a href="http://www.sencha.com/products/touch/">Sencha Touch</a> comes to mind)  but by in large nothing earth shattering has happened in the tools space.
+
+In that same time for me, however, I have ventured deeper into cross-platform development world and probably have a slightly different perspective on things than I had back then.
+
+{% endexcerpt %}
+
+
+## Understand the Pain
+Cross Platform Development in any situation is never as simple as developing for a single platform.  This is definitely true in the mobile space, and while vendors like <a href="http://rhomobile.com/">Rhomobile</a>, <a href="http://phonegap.com/">Phonegap</a> and <a href="http://appcelerator.com/">Appcelerator</a> ease some of that pain for you by building bridges, interpreters, frameworks, etc you will not escape it completely.
+
+The amount of pain you experience will largely depend on the cross-section of devices that you are targeting combined with the complexity of the application you are trying to build.   With the work that I am currently doing, I was convinced that I could build a <a href="http://www.sidelab.com/projects/slick/">HTML5 tiling library with a focus on mapping</a> in the spirit of <a href="http://openlayers.org/">OpenLayers</a> but optimized for mobile.  It turns out I was right, but it probably hasn't been as easy as if I'd written it specifically for either iPhone or Android.  
+
+While the application was ambitious in terms of the features that were being used from the still emerging HTML5 spec, the target device requirements were not, which leads into my next point.
+
+## Understand the Smartphone Market*
+In my opinion the _smartphone market_ is currently dominated by two players in two different market segments.  Firstly, Apple absolutely own the consumer space with the iPhone while RIM are still holding excellent marketshare with Blackberry for corporate customers. 
+
+While those players are currently dominant, Android is in there shaking things up.  Also, companies like Nokia, Samsung, Palm, etc are unlikely to forget that they once had a dominant place in the mobile market and will attempt to stay relevant.  This battle will likely run with a complexity, ferocity and longevity reminiscent of the Battle for Middle Earth, and betting on any one <a href="http://en.wikipedia.org/wiki/List_of_Middle-earth_animals#M.C3.BBmakil">mûmak</a> is probably a little risky.
+
+For right now though if you currently building an application for the consumer market, then your focus probably needs to be on iPhone.  If you building an enterprise application or one targeted at business users, you can't rule out Blackberry. With so much market volatility ahead in mobile, if you can build using web techniques and optimize the experience for your target platform(s) then you get a benefit of a higher reusability later.   
+
+## Understand the Impact of HTML5
+Don't underestimate the power of HTML5.  Much of the functionality in HTML5 actually eliminates the need for any kind of bridging framework in the longer term.  Of course, there will always be the latest piece of functionality in a mobile device that you won't be able to access via HTML5.  In these cases, you might turn to a bridging framework, custom native wrapper or hybrid implementation.
+
+Announcements like <a href="http://www.engadget.com/2010/08/03/live-from-rim-and-atandamp-ts-blackberry-torch-event/">RIM's recent news on the the inclusion of a Webkit Browser and HTML5 support in the new Blackberry Torch</a>, are good validations that HTML5 is gaining momentum.  Right now, you can already develop compelling apps using HTML5 for both iPhone and Android - but see my previous not re pain :)
+
+## Understand your Application Lifespan
+Not all applications that you build are going to be destined for a long shelf life.  When it comes to those applications, then asking yourself 'Why Bother' with regards to cross platform development is probably wise.  When developing an application that might be around for a bit (and thus one you may have to maintain for a few years) it's worth spending a little more time deciding on your direction.
+
+## Summary and some Math
+Right, I'm going to finish with the first cut at an equation that is designed to help you determine whether or not you should bother with looking at cross-platform development for mobile apps:
+
+*V = (p~i~ + p~e~ - nf) * al*
+
+_where:_
+
+<ul>
+<li>V = Cross Platform Development Value</li>
+<li>p~i~ = Application Initial Release Target Platforms</li>
+<li>p~e~ = Eventual Application Target Platforms (estimated)</li>
+<li>nf = Native device features</li>
+<li>al = Application Life Span</li>
+</ul>
+
+From my own playing around, I have found that if *V is greater than 2 then considering native development is worthwhile*, otherwise probably not.  There are probably some subsequent factors that should be applied (such as size of team, application complexity, development budgets, tolerance with regarding to emerging standards, etc) based on your own individual / business circumstances.
+
+Any tweaks or other thoughts, leave a comment, send an email, etc.  Happy to be challenged on any of the above as I would ideally like to present a balanced view on the topic.
+
+
+{%endarticle%}
+
+{% endblock %}

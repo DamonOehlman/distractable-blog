@@ -1,0 +1,79 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: Google AppEngine - Java vs Python Performance Comparison
+created: 2010-04-20
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+I am quite convinced that Google AppEngine is a very significant piece of "cloud computing" technology.  More than other cloud components, it has been designed to scale from small, low request count websites to the big suckers.  That is, until you come across your first <a href="http://code.google.com/appengine/kb/java.html#What_Is_A_Loading_Request">Loading Request</a> in the world of the AppEngine Java (and friends - Scala, Groovy, etc).
+
+{% endexcerpt %}
+
+I found out about Loading Requests in AppEngine, when I pushed my first <a href="http://gaelyk.appspot.com/">Gaelyk</a> application to it's home on AppEngine.  I've been keeping an eye on the performance of my sites and applications using <a href="http://pingdom.com/">Pingdom monitoring</a>, and unfortunately I saw something that made me feel a little sad when I saw the results.
+
+![AppEngine Platform Performance Comparison](/media/files/appengine_language_performance.png)
+
+<table class="rawdata">
+	<thead>
+		<tr>
+			<th>Platform</th>
+			<th class="numeric">Avg Response</th>
+			<th class="numeric">Slow Average</th>
+			<th class="numeric">Fast Average</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>AppEngine Vosao CMS (JVM Java)</td>
+			<td class="numeric">1380 ms</td>
+			<td class="numeric">2063 ms</td>
+			<td class="numeric">938 ms</td>
+		</tr>
+		<tr>
+			<td>AppEngine Lift Framework (JVM Scala)</td>
+			<td class="numeric">506 ms</td>
+			<td class="numeric">600 ms</td>
+			<td class="numeric">438 ms</td>
+		</tr>
+		<tr>
+			<td>AppEngine Gaelyk Site (JVM Groovy)</td>
+			<td class="numeric">11,597 ms</td>
+			<td class="numeric">12,776 ms</td>
+			<td class="numeric">10,565 ms</td>
+		</tr>
+		<tr>
+			<td>AppEngine Site Proxy (Python)</td>
+			<td class="numeric">504 ms</td>
+			<td class="numeric">713 ms</td>
+			<td class="numeric">372 ms</td>
+		</tr>
+	</tbody>
+</table>
+
+Comparing the performance of my Gaelyk skeleton site (WIP @ <a href="http://sparkz.distractable.net/">sparkz.distractable.net</a>) with my own (pretty rough) <a href="/coding/beefing-up-self-hosted-wordpress-with-google-appengine/">Python AppEngine Proxy</a>, the <a href="http://www.vosao.org/">Vosao CMS</a> running the <a href="http://www.sidelab.com/" title="Sidelab - Pervasive Computing">Sidelab</a> site, and the <a href="http://lift-example.appspot.com/">Lift examples on AppEngine</a> you can see that Gaelyk really lags behind in terms of performance. 
+
+_*Update 2010-04-25:* As comments around the place have suggested, note that the Scala Lift vs Groovy Gaelyk isn't really an apples vs apples comparison.  In my view this is primarily because I was running tests against the established appspot lift samples.  I provided more detail on this in <a href="#comment-720" title="More on Scala Lift vs Groovy Gaelyk">a comment below</a>_
+
+Now, I had pretty much decided that I was going to use Groovy and Gaelyk in some future projects, but these loading requests really throw a cat amongst the pigeons.  I believe some people are using cron jobs to keep the AppEngine JVM warm and prevent it from unloading, but this practice is discouraged by Google (understandably).  Considering also that my pingdom check interval is 5 minutes if it's unloading between those requests, then I don't hold much hope until Google do something about this.
+
+To that end, there are a number of things in the pipeline that will probably help things along.  The ability to precompile was introduced in AppEngine 1.2.8, and while it does make a difference when you enable it looking at my detailed pingdom logs requests are still taking almost 10 seconds to complete.  Additionally, there is an issue worth starring that if implemented will hopefully <a href="http://code.google.com/p/googleappengine/issues/detail?id=2456">enable people to reserve a JVM instance</a>.  Doing this would bring response times of my very simple Gaelyk app down to around the 250ms time.  Hurrah.
+
+In the meantime though, I think I have to seriously consider either going back to Python for AppEngine development or investigate <a href="http://www.scala-lang.org/">Scala</a> and <a href="http://liftweb.net/">Lift</a>.  Any opinions?  I definitely know more people who are passionate about Scala, but really, it's still JVM based and definitely nowhere near as mature as Python.  Excuse me now while I wipe my tears shed for Groovy and Gaelyk away.
+
+While I'm doing that though, here are a couple of other useful resources on the topic:
+
+<ul><li><a href="http://github.com/garyburd/app-eng-cold-start-test">http://github.com/garyburd/app-eng-cold-start-test</a></li>
+<li><a href="http://stackoverflow.com/questions/2111496/google-app-engine-loading-requests-happen-very-frequently">Google App Engine Loading Requests Happen Very Frequently @ StackOverflow</a></li>
+</ul>
+
+*Update 2010-04-25:* I have posted a <a href="/coding/google-appengine-language-performance-comparison-followup/">follow up to this post</a> in an effort to clear up a few points of confusion.  Additionally, it looks at the whether making requests to your site every minute (instead of every 5 minutes) reduces the impact of a loading request.
+
+*Update 2010-12-17:* Make sure you check out the <a href="http://googleappengine.blogspot.com/2010/12/happy-holidays-from-app-engine-team-140.html">AppEngine 1.4.0 release</a> as it has some solutions to the problems that I experienced when writing this post.
+{%endarticle%}
+
+{% endblock %}

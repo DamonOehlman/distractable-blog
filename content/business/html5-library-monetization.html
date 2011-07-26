@@ -1,0 +1,56 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: HTML5 Library Monetization
+created: 2011-05-25
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+Yesterday saw the release of the [open beta of Isogenic Engine](http://www.isogenicengine.com/open-beta-programme-purchase-license/).  Somewhat suprising was the fact that to get involved with the beta, a purchase of a premium license was required.  Even at the discounted beta rates, it's not an insignificant amount either (well for an indie developer anyway).
+
+{% endexcerpt %}
+
+While I'm suprised by the angle that Isogenic have taken, I do understand where they are coming from.
+
+## The Challenge of Sustainable Library Development
+
+I can say from experience that it takes quite a bit of time (and thus money) to develop a useful javascript library.  My own experience with [Tile5](http://www.tile5.org/) has taken various twists and turns, and more recently I've been considering [winding up development due to the very issue of sustaining development costs](/business/disillusionment-and-graceful-exits/).
+
+I doubt that I'm alone in this either. I've certainly had some good chats with [Louis Stowasser ](http://twitter.com/craftyjs) on his experience on developing [CraftyJS](http://craftyjs.com/) (a nice little HTML5 game engine in it's own right) and his thoughts about how to monetize his product.  Louis and I very much align in our thinking, and we have both adopted the liberal [MIT](https://secure.wikimedia.org/wikipedia/en/wiki/MIT_License) license for our libraries.  
+
+The challenge with using such a license is, that you probably won't see people giving back financially to the library unless they feel compelled. 
+
+Unfortunately it seems that few of us do feel compelled; or we just never manage to find the funds to give back.  I certainly include myself in this. I've used a lot of liberally licensed opensource libraries in my time, and I struggle to recall hitting the donate button more than a couple of times.  It's sad I know, but this is the reality of the situation.
+
+I believe we need to come up with something that supports open innovation and collaboration, but additionally, provides monetization strategies to support the ongoing development and improvement of useful libraries.
+
+## Adapting to a World of Micropayments
+
+The world of mobile apps and online gaming is currently driven primarily by low value transactions (of which in-game/app micropayments are a healthy part), so it's probably time to consider how to licence tools and engines in a way that suits these economics.
+
+Our previous models of the past are now limited in their effectiveness.  Consider a popular freemium model that a commercial gaming engine might use to sell their product:
+
+- free for free games / development
+- $X for indie developers
+- $10X for a commercial game studio
+
+While this model worked well in the past, we have seen that in the new world of mobile apps, that an indie game can quickly start making more (a lot more) money
+than a game from a commercial game studio.
+
+While I'm  not sure as to what the solution is, I would love to see an opensource license created/adapted that supported a tiered approached something like:
+
+- free for free games (or apps) & development
+- $X per annum for games (or apps) grossing $Y per annum in sales
+- $10X per annum for games (or apps) grossing $nY per annum in sales
+
+In all cases the code should be opensource and commented (I really don't see how getting commented code should be considered a premium feature).  
+
+Admittedly the above model does require somewhat of an honour system, but at this stage I'm not sure I have anything better that I can think of.  If you have any thoughts on what might work, I know I (and probably lots of other opensource developers trying to stay in business) would be interested in hearing your ideas.
+
+{%endarticle%}
+
+{% endblock %}

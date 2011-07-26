@@ -1,0 +1,77 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: Disillusionment and Graceful Exits
+created: 2011-05-19
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+While reviewing google alerts today, and having a look at what was going on with other opensource mapping APIs (for those who don't know, I created and continue to work on something called [Tile5](http://www.tile5.org/)), I came across [Leaflet](http://leaflet.cloudmade.com/).  I have to say, Leaflet looks to be a fine API and like [Polymaps](http://www.polymaps.org/) is opensourced under a liberal opensource license.
+
+{% endexcerpt %}
+
+With the introduction of Leaflet (which I believe will be quite successful), it leads me to question whether or not it is sustainable (and/or necessary) for me to continue pushing so hard with building Tile5.  You see, I have been [quite vocal regarding Microsoft and IE9](/business/ie9-microsoft-last-browser/) being of the opinion that they are possibly _flogging a dead horse_.  Obviously, this is an opinion that not everyone agrees with, but I still believe it to be true.  My take is that competition in the browser space is adequately covered between Mozilla and Webkit.  For those who want an _alternative choice_ there is Opera. 
+
+Browsers aside, my point is that while **competition helps drive innovation** the _potential innovation gain_ is not proportional to the number of competitors in the space. The sweet spot I believe is in having two committed and adequately funded competitors, with a third occasionally spicing things up with strange things from left-field.  In the browser-space, I believe that to be Mozilla vs Webkit, with Opera keeping things interesting.
+
+Todays post isn't about the browsers though, it's about opensource, alternative javascript mapping APIs, so let's have a look at the landscape (that I'm aware of):
+
+## The OpenSource Javascript Mapping APIs
+
+### OpenLayers
+
+[OpenLayers](http://www.openlayers.org/) are the original thought-leaders around the choice of a mapping API being able to work with multiple different mapping back-ends.
+
+The general feedback is that the API is starting to feel a bit tired, and it's lack of mobile support (which is being addressed, BTW) is hurting it.
+
+It is supported by a very active and passionate community and is also backed by the [Open Source Geospatial Foundation](http://www.osgeo.org/).
+
+### Polymaps
+
+[Polymaps](http://www.polymaps.org/) is an SVG-powered javascript mapping API that work with any mapping library that follows the [OpenStreetMap](http://www.openstreetmap.org/) "slippy-map" tiling conventions (or a derivative, such as Bing).  
+
+Polymaps is doing very well right now, and while doesn't have a broader browser or device coverage as the other APIs here does a wonderful job of mapping visualizations.
+
+Polymaps was created through a collaboration between [SimpleGeo](http://simplegeo.com) and [Stamen Design](http://www.stamen.com/).
+
+### Leaflet
+
+The newest kid on the block is [Leaflet](http://leaflet.cloudmade.com/) and provides a Javascript API that works well on both desktop and mobile platforms.  While I haven't had an in-depth look at the library it looks simple to use and well-documented.  Combine that with broad-device coverage and a liberal open-source licence I believe it is likely to get some solid adoption.
+
+Leaflet is a product of [Cloudmade](http://cloudmade.com/).
+
+### Tile5
+
+This is [Sidelab](http://www.sidelab.com)'s humble little HTML5 mapping library, and it's one that through the development of it I've learned a lot. In many ways Tile5 is the most powerful API here (capable of rendering on many different mobile devices, and even using WebGL on compatible desktop browsers).  Additionally, Tile5 connects to mapping engines such as [deCarta](http://decarta.com) which aren't quite as easy to connect to from the other libraries.
+
+For all the positives and strengths though, [Tile5](http://www.tile5.org/) is a library with a single maintainer ([me](http://twitter.com/DamonOehlman)) and doesn't have documentation that stands up against the other libraries.
+
+## Understanding the Ability to Compete
+
+Right now, I think I have some very good perspective.  Understanding how much it costs to build the library and attempt to drive it forward, I am certainly questioning whether it is worth continuing to push as hard as I have been here.  
+
+With regards to client projects that Sidelab is engaged in, Tile5 has been extremely useful in doing things that weren't possible with the available APIs.  Will that continue to be the case though?  While I'm not saying that I would stop work on it completely, I am thinking about pulling back on the public presence of the library.  
+
+I can't see how it is possible to compete (or maybe even add value) where the other libraries are backed by larger organizations (two of which have received financial backing in the order or millions of dollars).  And while I have just about gotten Tile5 to a 1.0 release status (and will continue to finish and support that release - it's part of a client project), I can't see roadmapping beyond that point in the best interests of [Sidelab](http://www.sidelab.com/) or my family.
+
+## Putting a Vision on Ice
+
+When I originally started Tile5 it was with a vision of being able to provide a well-crafted, Javascript mapping API that offered-first class mobile device support with a strong vendor-neutral focus.
+
+My goal was that _eventually_, mapping vendors would consider using Tile5 (either as is, or rebranded) as their Javascript API rather than attempting to build their own.  My rationale - they know mapping, not Javascript, and often their APIs lacked some polish.  Wouldn't they be better to help fund the development of an independant API and differentiate themselves on the strength of their maps and supporting services (geocoding, routing, etc).
+
+In reality, I think this was somewhat of a utopian ideal.  At least for now.  As we can see from Cloudmade's recent move, good APIs are still one of the primary differentiators between vendors.  Despite this equating to lots of wasted effort (which frustrates me) this is how things are.  In a couple of years time, things might be different, but I know that I'm not going to burn money until that time attempting to do something that is not yet financially viable.
+
+## Feedback
+
+I have written this post as both a mechanism for processing these thoughts and also offering some transparency about a decision that has been coming together over the last couple of weeks. 
+
+Ideally, if anyone has had similar experiences I would love to hear about them.  Additionally, if there are those that have an alternative perspective on how the development of Tile5 may become sustainable and thus continue that feedback would be welcomed.  Feel free to leave comments here, or via [Twitter](http://twitter.com/DamonOehlman).
+
+{%endarticle%}
+
+{% endblock %}

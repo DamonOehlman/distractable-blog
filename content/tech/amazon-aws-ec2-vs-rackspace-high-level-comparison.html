@@ -1,0 +1,58 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: Amazon AWS EC2 vs Rackspace - High Level Comparison
+created: 2010-02-26
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+Let me start by saying this is in no way an in-depth comparison of these two excellent cloud based hosting services.  It should serve, however, as a good resource to help you determine which of the options is better suited to your needs at a high level, and point you in the right direction for further investigation.
+
+{% endexcerpt %}
+
+
+## Amazon AWS EC2
+If you didn't already know EC2 stands for "Elastic Compute Cloud", and in it's name lies it's strength.  EC2 has been designed first and foremost for the provision of flexible (or elastic) computing power to meet your demand.  So if you have a some background processes that you need to run that are going to have varying resource (CPU, memory, etc) requirements over time, Amazon EC2 is well suited to this.  Supporting services such as the Elastic Block Store and Elastic IP addresses enable you to start and stop instances with relative ease and transparency to services that you are interacting with.
+
+To my mind however, if you want to stand up a website that can handle scalable load then EC2 really isn't the solution.  Not on it's own at least - combine it with something like <a href="http://rightscale.com/">RightScale</a> and you do have an effective, albeit rather expensive solution.
+
+So in summary, when you require elasticity think <a href="http://aws.amazon.com/ec2/">Amazon EC2</a>.
+
+## Rackspace
+Now <a href="http://www.rackspacecloud.com/">rackspace</a> on the surface seem to be a very similar service to AWS.  Rackspace have applied a different methodology to the cloud hosting, and using their background and experience with regards to hosting websites have come up with some pretty solid offerings.  Now firstly, <a href="http://www.rackspacecloud.com/cloud_hosting_products/files">CloudFiles</a> I can probably take or leave in favour of <a href="http://aws.amazon.com/s3/">Amazon S3</a> - happy to use either service.
+
+Next we have <a href="http://www.rackspacecloud.com/cloud_hosting_products/servers">CloudServers</a>.  Basically think EC2 but not as elastic.  This isn't a bad thing - if your processing power needs aren't particularly variable then you can save yourself a dollar or two by going with rackspace over AWS.   You won't be able to start and stop instances as easily as you can with EC2 though, and without an equivalent to Amazon's Elastic Block Store, you will have to use HTTP access to other persistent storage rather than the filesystem.
+
+The real appeal though (at least on the surface it seems) is their <a href="http://www.rackspacecloud.com/cloud_hosting_products/sites">CloudSites</a> product.  Whilst I haven't spent the money and started using their "from $149 per month" service it does seem like a very competitive and scalable equivalent to EC2 + Right Scale (which from memory starts at around $500 per month).
+
+Another thing that's interesting about Rackspace is... *they have people*.  Account activation involves one of their staff ringing you (yes even if you live in Australia) to activate your account.  Whilst I was a little taken aback that this was required at first, it does reinforce that the RackspaceCloud option is a professional offering.
+
+## Conclusion
+As I said when I started the post, there is no "right option" with either of these two fine products.  For me, however, I have been able to define some quick rules (excuse my very rough pseudocode).
+
+<pre>
+If (server_requirement = Website) Then
+  If (new_website_build) Then
+    CloudHost = AppEngine # yes I still like AppEngine
+  Elsif (money = Abundant) Then
+    CloudHost = Rightscale_EC2
+  Else
+    CloudHost = Rackspace
+Else
+  If (server_availablity = 24x7) And (server_load = Constant) Then
+    CloudHost = Rackspace
+  Else
+    # this covers variable server availability, server load or development requirements 
+    CloudHost = EC2  # see nifty techniques using Amazon SQS
+</pre>
+
+Right then, any questions?
+
+
+{%endarticle%}
+
+{% endblock %}

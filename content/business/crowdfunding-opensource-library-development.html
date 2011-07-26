@@ -1,0 +1,69 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: Crowdfunding for Opensource Library Development
+created: 2010-12-08
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+As mentioned in previous posts, I've been thinking a lot about how to achieve the following around the <a href="http://www.tile5.org/">Tile5</a> library:
+
+<ol>
+<li>How to financially support the ongoing development of the library.</li>
+<li>How to ensure liberal opensource licensing is maintained while achieving objective 1.</li>
+</ol>
+
+So after a lot of thought, I have an idea.
+
+{% endexcerpt %}
+
+Before we get into the crux of the idea, I'll just go through a few principles that are important to me.
+
+## Good Opensource Libraries deserve Full-Time Developers and Maintainers
+
+Firstly, an opensource library of any value deserves to have more than just part-time attention.  Balancing time between developing client solutions and maintaining and progressing a library looks to be an impossible balancing act - especially if you would like to see your kids grow up.
+
+## Liberal Licensing Assists Product Adoption, but hurts the bottom line
+
+Next, quite clearly adopting a liberal MIT, BSD style opensource license gives an opensource library one of the best chances for -success-initial adoption, but generally hurts it from a financial sustainability point of view.  As mentioned in a <a href="/business/building-tools/">previous post</a> most successful, liberally licensed opensource libraries end up with some kind of benefactor financing the development of that library.  This is great, but not every opensource library is going to be a good fit for this approach, even if it has a reasonable commercial user base.
+
+As an individual user I have to confess to not donating to the likes of <a href="http://jquery.com/">jQuery</a> and neither have companies that I have worked at in the past.  Why is this, and is this fair?  It certainly isn't fair as tools like jQuery definitely save money in the development of a project (usually a measurable amount) so why isn't a proportional amount contributed back?  I know this it isn't just myself in this situation as commonly you will see case-study projects where opensource software was used exclusively to deliver a project, and the software cost of the project is reported as $0.
+
+I guess it just comes down to human nature, we can get something for nothing which is good as commercial and while we feel like we maybe should do something, we just never do...  pity.  Like I said, I'm as guilty as anyone.
+
+## So the Shoes on the Other Foot Now, eh?
+
+Now sitting on the other side of the fence, I'm left scratching my head - Given our nature of "not getting around to donating" to an opensource project how on earth do you sustain development of a liberally licensed open source library (and don't say change to a dual-licensed model, because it ain't happening).
+
+Well, here's my idea:
+
+## Publishing a Transparent, Costed and Crowdfunded (hopefully) Product Roadmap
+
+For <a href="http://www.tile5.org/">Tile5</a> I am going to try something new.  I haven't had the time to set it up yet, and to be honest I'm still looking for the perfect crowdfunding site to try this with.  But essentially, here is what I'm thinking:
+
+I've got a pretty good idea of the various directions that we could take <a href="http://www.tile5.org/">Tile5</a> and believe me there are quite a few.  So it's time to publish those potential features more openly, describe each one in a bit of depth and then provide an estimate of how much I think it will cost to implement.  Some will be trivial, others will be harder so costs will vary.  Then each of these features becomes like a crowd-funded mini-project which individuals could contribute a few dollars to and businesses with the opportunity to create return from the product a bigger chunk.
+
+I have no idea as to whether it will work or not, but I think it just might.  Thinking about stories I have heard and the own way I think about libraries I use, I think it would be more successful than the simple "Donate" button that you usually see on an opensource project page.  
+
+Why, well essentially, people would be a lot more engaged through the process:
+
+<ul>
+<li>A "donator" would be contributing specifically towards a feature that really matters to them (which could include better documentation).</li>
+<li>Incorporating <a href="http://kickstarter.com/">Kickstarter</a> like reward levels would probably encourage people donating a little more.</li>
+<li>Transparency around the funding process helps brings others on board, and I think this is shown in existing Kickstarter projects.</li>
+</ul>
+
+At any rate, I'm going to give it a go. It may not take off at first, but I think this could potentially a great model for opensource libraries to raise funds - which let's face it we all need.  While we don't get into opensource development to make loads of money (at least I hope not), there still remains the need to feed a family.
+
+If you have any thoughts, I'd love to hear them (either here or somewhere like <a href="http://news.ycombinator.com/">Hacker News</a>).
+
+## Update: 2010-12-09
+Wow, <a href="http://www.readwriteweb.com/hack/2010/12/new-crowd-funding-platform-for.php">ReadWriteWeb featured a post</a> about an excellent looking crowdfunding tool that will probably fit the bill nicely - Check it out here: <a href="https://fundry.com/">fundry.com</a>
+
+{%endarticle%}
+
+{% endblock %}

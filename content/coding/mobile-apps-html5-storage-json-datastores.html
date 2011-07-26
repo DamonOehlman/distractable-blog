@@ -1,0 +1,65 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: Mobile Apps, HTML5 Storage and JSON Datastores
+created: 2010-09-22
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+Despite massive buzz around HTML5, NoSQL and mobile development at the moment, it seems that very few people and technology providers are actually joining the dots with regards to the way things are going.  An era of mobile web app development is coming (I believe faster than many analysts are predicting) and we just don't seem to have all the pieces quite ready for it's arrival.
+
+{% endexcerpt %}
+
+
+## The Problem
+Putting the web vs native mobile app debate to one side for a second, it should be evident to most people working in mobile that we are presently generating a lot of applications that *should* be able to support disconnected, local datastores.  Whether that is through native device databases or through the HTML5 apis is _somewhat_ irrelevant, as we seem to have very few facilities for providing synchronized, cloud storage for these local databases to provide users with a seamless experience between desktop and mobile.  This is something that we are considering important... isnt' it?  Sure you can obviously roll your own solution for every little application that you write, but that really doesn't seem like working smarter to me.
+
+What I consider working smarter, is some kind of magical, mystical cloud-hosted identity aware JSON datastore that will allow me to transmogrify my data between my mobile app (in my case stored in HTML5 clientside db) and desktop application in a seamless manner - irrespective of the reliability of my internet connection.  In terms of what's available right now to do that, well in my opinion there isn't a lot.  
+
+## Some Possible Solutions
+Here's a quick list of the options I have found, and where my money goes:
+
+### Persevere
+
+<a href="http://persvr.org/">persvr.org</a> <a href="http://docs.persvr.org/">docs.persvr.org</a>
+A liberally licensed opensource "JSON storage and JavaScript application server" built on java-based technologies (Rhino, Jetty, et al).  Looks good for roll-your-own, but no hosted version or identity support.
+
+### NextDB
+
+<a href="http://nextdb.net/">nextdb.net</a>
+Commercial, hosted Javascript database.  Price reasonable enough, but not JSON-centric enough for me and lacking identity support.
+
+### CouchDB
+
+<a href="http://couchdb.apache.org/">couchdb.apache.org</a>
+Strong player from the NoSQL movement.  Hosted solutions available from <a href="http://couchone.com/">CouchOne</a>. No JSONP write support (at the moment).  Identities = db users (not what I had in mind).
+
+### jsonengine
+
+<a href="http://code.google.com/p/jsonengine/">code.google.com/p/jsonengine/</a>
+App Engine application with a liberal opensource license.  Easy to host in the cloud with the right skillset, excellent scalability.  Identity support through openid and Google accounts.  No JSONP support due to RESTful interface - POST writes.  Definitely moving in the right direction, one to watch.
+
+### Freebase and Freebase "Acre"
+
+<a href="http://freebase.com/">freebase.com</a>
+Hosted solution, free in all the ways I checked (lunch anyone??).  Good JSONP support for both read and write operations.  Identity support in the mix (need a Freebase ID, but supports Google and Yahoo account logins).  Acre = Hosted Apps Platform = interesting.  *Update:* To use per-user stores, however, you do have to run up the opensource version of Acre (see the note at the end of the article).
+
+## My Pick(s)
+
+All in all, the only solution that ticks all the boxes I need ticked right now is <a href="http://freebase.com/">Freebase</a>.  I think Freebase has a big future ahead of it, and it's not hard to see why Google chose to acquire <a href="http://www.metaweb.com/">Metaweb</a>. 
+
+Being comfortable with AppEngine, <a href="http://code.google.com/p/jsonengine/">jsonengine</a> comes in at a close second, but not being able to support JSONP for write requests is a bit of a killer for being able to implement a more generic solution.  If you are looking for JSON document storage for a project that doesn't require cross-domain connectivity (i.e. web app on the same server or native mobile app), then I would definitely recommend having a look at jsonengine though.
+
+## Update: 2010-09-23
+
+After a bit more poking around and some assistance from <a href="http://twitter.com/tfmorris">Tom Morris</a> Freebase's <a href="http://acre.freebase.com/">Acre Platform</a> is even cooler than I first thought.  It will happily run on AppEngine :)   This is in fact required to properly create per user storage instead of storing all information as "open data".
+
+For more information on that and Open Source Acre, I'd definitely recommend having a look at the <a href="http://blog.freebase.com/2010/08/19/open-source-acre/">official Freebase blog post announcing Opensource Acre</a>. 
+
+{%endarticle%}
+
+{% endblock %}

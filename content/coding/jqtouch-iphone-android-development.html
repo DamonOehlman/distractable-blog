@@ -1,0 +1,43 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: jQTouch for iPhone and Android Development
+created: 2009-09-01
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+If you are anything like me you have been tempted by iPhone development on a number of occasions, but you don't currently have the time or tools available to get started.  Well now there is a great toolset available for web developers who would prefer to spend their time with web technologies like Google AppEngine and jQuery rather than the likes of Objective-C.
+
+Don't get me wrong, there is a time and place for native iPhone and Android development but in terms I strongly believe that jQTouch will enable a large majority of applications to be built using web tools, and provide that iPhone look and feel.
+
+{% endexcerpt %}
+
+
+Getting started with <a href="http://jqtouch.com/">jQTouch</a> feels as comfortable as getting started with any jQuery plugin.  <a href="http://www.davidkaneda.com/">David Kaneda</a> gets some Kudos for me, for making it is easy as he has to make a great feeling little web application for the iPhone.
+
+The basics of creating a very simple iPhone friendly web page are as simple as including the correct jQuery library (version 1.3.2 at the time of writing this post) and the relevant jQTouch files (one javascript file, one common stylesheet, and a theme style sheet and some relevant images that are referenced from the theme style sheet).
+
+Setting up your HTML then involves creating a number of divs that will all be hidden by default, except for the div with the id of #home (or possibly the first div - not sure which yet).  At any rate, it's very simple to get started, and I would recommend heading over the David's documentation on the jQTouch project hosting on <a href="http://code.google.com/p/jqtouch/wiki/GettingStarted">Google Code</a>.
+
+Next steps for me are:
+<ul>
+<li>To see how nicely Google Maps will play with the jQTouch platform.</li>
+<li>Attempt to write a customized theme that will encapsulate some of the corporate branding for the company that I currently work for.</li>
+</ul>
+
+## Update 10/04/2010:
+Some feedback on the points above.  Google Maps worked OK with jQTouch on the iPhone, but did have behave a little strangely.  You can get around the oddities by reducing the functionality that you utilize on the map but that kind of defeats the purpose.  In addition to work with Google Maps, I'm going to look to see what can be achieved with the deCarta mapping API as I've done some work with the deCarta platform in the past.
+
+Additionally, I can strongly recommend anyone who is interested in looking further into jQTouch, PhoneGap and generate web coding for the iPhone to check out <a href="http://jonathanstark.com/">Jonathan Stark's</a> book: 
+
+_<a href="http://www.bookdepository.co.uk/book/9780596805784/Building-iPhone-Apps-with-HTML-CSS-and-JavaScript">Building iPhone Apps with HTML, CSS, and JavaScript</a>_
+
+It's a really great read and not only touches on jQTouch but also lots of the HTML5 features that you can use to make a very engaging and self sufficient mobile web application without having to go anywhere near the native APIs.  If you want to deploy to the application to the AppStore Jon also covers using the PhoneGap framework to bundle your web code.  For alternative frameworks to PhoneGap, I have another post covering <a href="/coding/iphone-android-web-application-frameworks/">web to native web application frameworks</a>.
+
+{%endarticle%}
+
+{% endblock %}

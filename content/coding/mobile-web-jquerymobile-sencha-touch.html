@@ -1,0 +1,45 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: Mobile Web UIs - jQuery Mobile and Sencha Touch
+created: 2010-08-14
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+Today I noticed a tweet from <a href="http://twitter.com/jeresig">John Resig</a> about the launch of the <a href="http://jquerymobile.com/">jQuery Mobile</a> site.  Anyone who has been keeping up with what John has been doing over the last little while has known this is coming, but it is great to see it starting to come together.
+
+{% endexcerpt %}
+
+In the absence of code, the most valuable resource on the site is the <a href="http://jquerymobile.com/gbs/">Mobile Graded Browser Support</a> table as this is the result of work that John has been doing investigating and working with the various mobile OS vendors to determine the "state of the browser" in the mobile space.  It's certainly great to see this kind of information presented so clearly not only for the benefit of us devs, but also to hold up a mirror to the OS vendors and say "Hey this is all happening, and if you don't get your act together you are going to be irrelevant".
+
+This brings be to my next point of discussion - <a href="http://www.sencha.com/products/touch/">Sencha Touch</a>.  The guys over there at Sencha, with particular kudos going to <a href="http://twitter.com/DavidKaneda">David Kaneda</a> have done some great work bringing a solid, feature complete UI + touch web framework to market pretty early.  For those who remember, this is not disimilar to the way that ExtJS provided a rich UI framework for desktop web applications before we were "spoilt for choice" in that space.   
+
+It will be interesting to see how Sencha respond (if at all) to the revelation of the jQuery mobile strategy.  As a developer who <a href="http://www.sidelab.com/">builds commercial mobile web apps for companies</a> (and promotes that as an alternative approach to native development) what at the end of the day is going to be more appealing.  A *cross-device* (cross-platform isn't really the right word any more) mobile UI framework that is released under the MIT licence (I'm hoping that is going to the case) in jQuery mobile. Or the dual-licensed GPL3/commercial licence of Sencha Touch.  I know which way I'm already leaning.  
+
+I respect that companies need to monetize their investment in development work somehow, but I think dual licensing (no matter how good the product) is an Opensource monetization strategy that limits the product take-up.  This is an opportunity for Sencha to re-evaluate that licensing and potentially lure the eager masses of engaged jQuery supporters before the mobile UI is released.  
+
+I'm certainly in two minds with regards to waiting for jQuery mobile vs trying out Sencha Touch.  Until something happens, I guess I'll keep using David Kaneda's original creation <a href="http://jqtouch.com/">jQTouch</a> (now also part of Sencha and actively maintained by <a href="http://twitter.com/jonathanstark">Jonathan Stark</a>) - which is very good and licensed under the flexible MIT license.
+
+Just my two cents. 
+
+*Update 2010-09-07:*
+Sencha <a href="http://www.sencha.com/blog/2010/09/03/sencha-touch-pricing-and-much-more/">announced their Sencha touch commercial pricing on the 03 September</a>.  $99 per developer.  Exactly the right price if you ask me.  Licence bought, time to build some cool apps :)
+
+*Update 2010-11-16:*
+Sencha have released 1.0 of their framework and have also announced that framework can now be used for commercial apps for free.  Nice work guys :)
+
+<a href="http://techcrunch.com/2010/11/15/sencha-launches-touch-1-0-with-a-new-price-point-free/">This article on Techcrunch has more info.</a>
+
+Oh, and if you want to see a Sencha Touch app in action, why not head over to the <a href="http://sencha.com/contest/">contest page</a> to see what people have built with the framework.  The contest inspired me to write an updated version of the <a href="http://www.tile5.org/">Tile5</a> photogrid, and it can be seen here:
+
+<a href="http://sandbox.tile5.org/photoexplorer">Sencha Touch + Tile5 Photo Explorer</a>
+
+Made it into the comp runners up too :)
+
+{%endarticle%}
+
+{% endblock %}

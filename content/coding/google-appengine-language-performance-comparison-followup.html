@@ -1,0 +1,70 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: Google AppEngine Language Performance Comparison Followup
+created: 2010-04-25
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+After writing a post that has recently sparked some controversy, I felt that it was only proper to offer up some more observations about the way various languages perform at a *baseline* (yes - read hello world style applications) on Google AppEngine.  The primary purpose of both this post, and my previous post on <a href="/coding/google-appengine-java-vs-python-performance-comparison/">comparing Google AppEngine language performance</a> is to show that while Google offer Java on AppEngine, the performance of Java Applications for low-traffic (or growing) sites may not be what you are expecting on day one.
+
+{% endexcerpt %}
+
+## Updated Response Time Graphs (1 minute Pingdom Check Interval)
+
+#### Gaelyk Test App Response Times
+![Gaelyk Test App Response Times](/media/files/gaelyk-test-app-response-times-300x225.png)
+
+#### Lift Test App Response Times
+![Lift Test App Response Times](/media/files/lift-test-app-response-times-300x225.png)
+
+#### Python Test App Response Times
+![Python Test App Response Times](/media/files/python-test-app-response-times-300x225.png)
+
+#### Python Test App Response Times Variant (1000ms max y-axis)
+![Python Test App Response Times Variant](/media/files/python-test-app-response-times-variant-300x225.png)
+
+### Reading the Updated Graphs
+As you can see, the graphs this time around are presented slightly differently, with separate graphs for Grails, Lift and Python.  Additionally, the graphs shown here showing data from Pingdom after <a href="/coding/google-appengine-java-vs-python-performance-comparison/comment-page-1/#comment-729">setting a request interval of 1 minute as per Sean Gilligan's suggestion</a>.  On each of the graphs, the line colouring is as follows:
+
+<ul>
+<li>*Red:* The average response time for the 450 requests sampled</li>
+<li>*Orange:* The average response time + 2 standard deviations to help detecting the outliers</li>
+<li>*Blue:* The actual response time for the sample</li>
+</ul>
+
+So, what do the new graphs show us?  Firstly, when doing an apples and apples comparison (see below for more information) with Gaelyk and Lift we can see that Gaelyk actually performs a little better.   Whether or not this is going to be the case consistently I cannot say - but we can see that the Lift framework tests are producing loading requests more frequently.  In reality, I believe this is a variable factor caused by sharding requests to different JVM instances and running the tests again could quite potentially yield different results.
+
+Secondly, the Python response times still kick the pants off the JVM test apps, but please read on as I try to put some context around this statement as this isn't an in-depth Python vs Java language performance shootout...
+
+## Clearing up a few things
+Given some of the comments that I saw on Reddit, YCombinator, etc, I guess I should probably clear a few things up (or at least try):
+
+<ul>
+<li>The <a href="/coding/google-appengine-java-vs-python-performance-comparison/" title="
+Google AppEngine – Java vs Python Performance Comparison">original post</a> wasn't meant to be an in-depth comparison of language performance on Google AppEngine.  Sorry if you felt that the title of the post misrepresented the content.  The focus of the post was to demonstrate the impact of the "Loading Requests" on AppEngine - sadly titling the post probably wouldn't have brought the problem to many people's attention...</li>
+<li>As I point out in <a href="/coding/google-appengine-java-vs-python-performance-comparison/comment-page-1/#comment-720">one of my comments on the previous post</a> the original post paints Gaelyk in an undeservedly bad light, as I wasn't really doing an "apples and apples" comparison between Gaelyk and Lift.  The lift test site for the previous site was an established site as opposed to a fledgling.  This has been rectified in these tests and I am now using a recently created Hello World Lift Testbed.  This is particular important to me because...</li>
+<li>I consider both <a href="http://groovy.codehaus.org/">Groovy</a> and the <a href="http://gaelyk.appspot.com/">Gaelyk Groovy AppEngine Framework</a> some of the most elegantly executed pieces of coding that I have seen.  Basically, I really like both of them, and because of this I would be very happy if I could create scalable web applications on AppEngine using them.</li>
+<li>My definition of a scalable application, means that it performs as well if it is serving 1,000,000+ as it does if it is serving 1.  Usually the challenge is catering for the 1,000,000+, however, with the situation here our application *does not scale* to a smaller number of users.  I'm not sure how to get an application to 1,000,000+ users if it doesn't perform well for a few.</li>
+<li>I don't think Python is better than any JVM based language.  Right now though it does offer faster baseline response times on AppEngine.</li>
+</ul>
+
+## Conclusions
+Loading requests are still a problem for JVM based sites / applications hosted on AppEngine.  The good news is that the ability to reserve a JVM for your application is on the <a href="http://code.google.com/appengine/docs/roadmap.html">AppEngine Development Roadmap</a> so hopefully we should see it in an upcoming release soon.  Additionally, while not encouraged by the AppEngine team using a cron job or external service such as <a href="http://www.pingdom.com/">Pingdom</a> to keep your application alive will help minimize the occurrence of loading requests, but you will have to make sure you are polling once a minute as once every 5 just doesn't cut the mustard.
+
+If, however, you are a Java/Groovy/Scala/etc user and have gotten to the point where you don't think you can consider AppEngine for deploying your web site / application there are alternatives.  One that was suggested to me was <a href="http://www.stax.net/">Stax</a> which does look pretty good.
+
+As for me, I'm definitely not at that point - I intend on pushing ahead with AppEngine as there aren't too many cloud platforms that offer scalability to the point that AppEngine does - but that's a conversation for another time.  Additionally, I intend on trying to build a small tool to help keep your AppSpot application "warm" (despite the appengine's team's advice).  
+
+If you are interested in getting an update on this tool when it's finished, or would like to keep in touch with AppEngine and other articles, please <a href="http://feeds.feedburner.com/distractable" title="Subscribe to Distractable">subscribe to the Distractable feed</a>.
+
+## Update 2009-04-29:
+I mentioned Stax as an alternative that is available to AppEngine for Cloud deployed Java apps, and it is probably worth noting that while it isn't yet available, <a href="http://www.vmforce.com/">VMforce</a> looks like a really interesting option too.
+
+{%endarticle%}
+
+{% endblock %}

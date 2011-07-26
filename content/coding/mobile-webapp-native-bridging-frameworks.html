@@ -1,0 +1,77 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: Mobile Web App Native Bridging Frameworks
+created: 2010-05-18
+%}
+
+{% block article %}
+
+{% article %}
+
+{% excerpt %}
+
+Last week I started a <a href="/coding/5-day-cross-platform-mobile-mapping-application-challenge/">5 day exercise</a> to re-evaluate the various frameworks that are at the disposal of developers for the purpose of <a href="/coding/iphone-android-web-application-frameworks/">iPhone and Android cross platform mobile development</a>.  This time, the focus was on what the various frameworks had to offer if I was to build a mapping application for multiple different mobile platforms.
+
+This is part 1 of the wrap up from that week - a comparison of the native bridges for cross platform iPhone and Android web app development.
+
+{% endexcerpt %}
+
+The three candidate frameworks that were compared last week were PhoneGap, RhoMobile and Appcelerator.  Each of the products takes a slightly different approach to native device integration, so while all three appear very similar on the surface they do have distinct differences.  The right platform for you will largely depend on the style of application you are building and your preferred coding style.  Without further ado, let's take a look at an overview of each of the frameworks.  After that, we'll have a look at which framework I have decided to take forward to develop a mapping application and why.
+
+## PhoneGap
+
+<a href="http://www.phonegap.com/">phonegap.com</a>
+PhoneGap is a native bridging framework in the purest sense.  It is an enabler for accessing the native capabilities of a multitude of devices using web technologies as much as possible.  You can write web applications with hooks into the native capabilities of the device in your javascript code.  Structure your application well and you should be able to support progressive enhancement using those additional native capabilities.  Once you have done this, you should very easily be able to make your application available through both the device application stores and online at a url of your choosing.
+
+### Choose PhoneGap If...
+<ul>
+<li>You are a writing (or have written) a mobile web application or site and want to access the native application stores and/or the native capabilities on a number of devices.</li>
+<li>You have experience with HTML / CSS / Javascript technologies, and the neither of the differential offerings in Rhodes (Rhomobile) or Titanium (Appcelerator) appeal to you.</li>
+</ul>
+
+## Rhodes by Rhomobile
+<a href="http://rhomobile.com/products/rhodes/">http://rhomobile.com/products/rhodes/</a>
+While in my <a href="/coding/iphone-android-web-application-frameworks/">previous post comparing mobile web frameworks</a> I shyed away from Rhodes due to a preference for Python over Ruby, I gave it a more solid shot this time.   While it took longer to gain familiarity with the framework due to the extensive use of Ruby and Rails-like architecture, once you get the hang of it you can definitely appreciate some of what Rhomobile are trying to provide you in a mobile application framework.
+
+Whereas PhoneGap take a very bare-bones framework approach to a native bridging framework, Rhodes provides an architecture for building data-driven mobile apps that will be very familiar to developers who are familiar with Rails or similar MVC frameworks.   Additionally, Rhomobile provide a number of additional services that can enable you to create a mobile application with supporting data stores without having to look beyond their <a href="http://rhohub.com/">RhoHub</a> and <a href="http://rhomobile.com/products/rhosync/">RhoSync</a> products.   While I have a strong preference for using server-side solutions such as <a href="/tag/appengine/">AppEngine</a> for providing the remote component pieces of a mobile application, and wiring it all together myself, there are times when using something like RhoHub could definitely be appealing.  There are some <a href="http://rhohub.com/pricing">costs associated with using RhoHub</a> though, so make sure you investigate these before jumping in boots and all. 
+
+### Choose Rhodes If...
+<ul>
+<li>You have experience with Rails and the Ruby language and are looking to create mobile applications.</li>
+<li>You are interested in created a data-driven mobile application and are looking for a framework that is geared strongly towards supporting those kind of apps.</li>
+</ul>
+
+## Titanium Appcelerator
+<a href="http://www.appcelerator.com/products/titanium-cross-platform-application-development/">http://www.appcelerator.com/</a>
+Titanium is probably one of the most ambitious of the native bridges that I looked at in any sort of depth.  Appcelerator's pitch is slightly different to the other frameworks in that they are pushing to achieve _Cross Platform Native Development_ - both for desktop and mobile operating systems.  This is definitely a big task, given the progressive nature of the mobile SDKs especially.   With the amount of work that is required to support native controls and application components on a device, Titanium doesn't yet have the same breadth of device support that both PhoneGap and Rhodes have - currently they support both iPhone and Android, and a Blackberry beta is scheduled for release soon.  I don't consider this a problem right now, as I'm taking quite a blinkered view to cross platform support myself at this stage prioritizing iPhone and Android above all other platforms.
+
+Coding in Titanium is definitely a pleasant experience, as development is done completely with javascript.  Additionally, framework components make the task of developing the app quite a straightforward process with a nice UI for starting and logging in your applications while developing.   Plus the buzz of seeing a native control created from writing javascript rather than Objective-C feels very good indeed.
+
+### Choose Titanium If...
+<ul>
+<li>You really want to develop a cross-platform native mobile application using javascript, rather than Objective-C.</li>
+<li>Are focused primarily on iPhone and Android handsets (and soon Blackberry).</li>
+</ul>
+
+## Impacts for a Mapping Application
+While I started the week looking for something in one of the frameworks that would differentiate one framework from another for building a mapping application, I didn't really find one in particular.  Both Rhodes and Titanium are pushing the envelope and offer native mapping controls for various platforms (Rhodes does have wider device support currently), both implementations only provide support for displaying a map and pinning annotations on the map at a particular latitude and longitude.  Satisfactory for some apps, but I need to go further than that.  
+
+Additionally, not suprisingly both frameworks support native maps for Google Maps only out of the box, and the complication I have is that in this instance I need to develop for the deCarta mapping platform (despite my love of other things Google - <a href="/tag/appengine/">AppEngine</a>, <a href="/tag/android/">Android</a>, Wave, etc).
+
+## Mobile Web Application Framework of Choice (for me)
+Firstly, let me say this was not an easy decision to make, a number of factors contributed to my decision.  Based on the evaluation I completed, my experience over the 5 days regarding what could be achieved in each of the frameworks and how, and additionally my understanding of each product's roadmap moving forwards I will be going with (drum-roll please...): <a href="http://rhomobile.com/products/rhodes">Rhodes</a>.  Here's why:
+
+<ul>
+<li>Despite not being a Rails user (or avid fan), what was offered through the MVC framework that underpins Rhodes does support the creation of scalable, maintainable cross-platform mobile web applications.</li>
+<li>Titanium provided quite a significant distraction with the access to native controls in their framework, until I sat back and remembered that wasn't _my core focus_.  Appcelerator are offering *mobile cross platform native development*, whereas my focus is on *mobile cross platform web development*.  The titanium approach is very appealling right now, but in a couple of years I believe will be less necessary.</li>
+<li>While PhoneGap provides excellent component pieces for bridging a web application to the native capabilities of a device, the Rhodes architecture (once I had the hang of it) offerred a little more.</li>
+<li>Finally, and probably most importantly, I had some conversations with <a href="http://twitter.com/adamblum">Adam Blum</a> regarding the direction in which they are wanting to take Rhodes and Rhomobile in general.  From those conversations, I was able to see some alignment between this application (and future application) goals and their roadmap - which is quite exciting.</li>
+</ul>
+
+## Questions? Clarification?
+If you have any questions, or if I haven't provided enough detail on any of the points please feel free to leave a comment below.  Additionally, if you are involved with development of either PhoneGap, Rhodes or Titanium and I have missed the mark on anything, please leave a comment below to clarify.
+
+{%endarticle%}
+
+{% endblock %}

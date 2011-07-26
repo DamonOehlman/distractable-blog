@@ -1,0 +1,29 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: SVG vs Canvas - Is the age of SVG dawning?
+created: 2010-08-31
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+When I began work on <a href="http://www.tile5.org/">Tile5</a> a few months ago,  I was absolutely certain the the HTML5 Canvas was the "way of the future".  For a long while there had been opportunities for SVG to make an impact in the browser space but it had failed to do so, which led me to believe that the mainstream would bypass SVG related technology and gradually move to HTML5 canvas implementations.  But now I am wondering if I was wrong. 
+
+{% endexcerpt %}
+
+With awesome projects such as <a href="http://raphaeljs.com/">Raphael</a> and <a href="http://polymaps.org/">Polymaps</a> opening people's eyes to the possibilities of SVG, in addition to showing that SVG support has as much, if not more mature support in modern browsers.   While these are still niche technologies, I am impressed to see where they are popping up.  As mentioned in <a href="/coding/5-day-cross-platform-mobile-mapping-application-challenge/">previous posts</a>, I've done some work with the <a href="http://www.decarta.com/">deCarta</a> platform over the years, and for that reason one of the first <a href="http://www.tile5.org/map-providers">map providers</a> I implemented in Tile5 was deCarta.   On looking through the latest version of their own javascript API, what project do I see popping up?  Raphael.  Nice one :)
+
+The main thing I guess that might leave me thinking that Canvas will ultimately be the predominant technology and SVG may not reach critical mass, is that well SVG - Scalable Vector Graphics definitely _implies_ that it is optimized to work with Vector information rather than Raster images, whereas Canvas doesn't lead you to jump to any such conclusions.  I know that Polymaps showcases bringing images and SVG together very well, and this may go a long way to helping people realise that SVG and raster images play nice together.  Will it be enough in the long term?  Maybe... either way, right now SVG has the best shot it's had in a long time to "make it".  
+
+In terms of differences between the capabilities between the two there really isn't much that you could do in one that you couldn't do in the other.  From what I can tell one of the primary differences is that SVG elements are embedded in the DOM and can have relevant browser events attached to them, whereas Canvas is simply a drawing palette with a single entry in the DOM (offscreen buffers aside).  Knowing that the DOM has been a point of frustration over the years you would think this might favour Canvas, but then people do like the familiar and certainly dropping in a little bit of SVG here and there as DOM elements is probably simpler than coding your draw code from scratch in Canvas.  Yep - this is definitely a two horse race.
+
+My prediction.  Flash gets the axe - ex -flash- actionscript developers discover canvas, we kill off VRML (finally) while we are at it, and SVG and Canvas get to co-exist for a few years in a "my implementation is more elegant than yours" half-brothers sibling rivalry.  Hopefully in that time people will also work out that you can now do everything you want to do with web technologies and the need for peculiar native languages (not mentioning any names) is no longer required.
+
+_For an excellent (and balanced) presentation on HTML5 canvas - I would recommend checking out <a href="http://www.slideshare.net/Dmitry.Baranovskiy/canvas-2195590">Dmitry Baranovskiy's presentation on Slideshare</a>.  Dmitry is the author of Raphael so it is interesting to see a presentation from someone who understands both technologies._
+
+{%endarticle%}
+
+{% endblock %}

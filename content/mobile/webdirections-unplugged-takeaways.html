@@ -1,0 +1,69 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: Webdirections Unplugged "Takeaways"
+created: 2011-05-14
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+While [Webdirections Unplugged](http://unplugged11.webdirections.org/) is fresh in my mind, I think it is probably worth trying to capture some thoughts that I hope will stay with me for at least the coming year.  I will briefly cover a few different areas that I think are important (at least from my perspective).  I could probably write individual posts on each topic, but that is only something I intend to do if people are keen to hear more on the topic.
+
+{% endexcerpt %}
+
+While [Webdirections Unplugged](http://unplugged11.webdirections.org/) is fresh in my mind, I think it is probably worth trying to capture some thoughts that I hope will stay with me for at least the coming year.  I will briefly cover a few different areas that I think are important (at least from my perspective).  I could probably write individual posts on each topic, but that is only something I intend to do if people are keen to hear more on the topic.
+
+I should point out that my thoughts are very much a reflection of the sessions that I attended and the people that I spoke too, coupled with my own strong opinions on various topics.  A big thanks to [John Allsopp](http://twitter.com/johnallsopp) and [Maxine Sherrin](http://twitter.com/maxine) for pulling such a great cross-section of topics together for the conference.
+
+## 1. Creating Truly Cross Platform Mobile Apps (and sites) is hard
+
+Building true cross-platform mobile apps using HTML/JS/CSS is hard work, and it's tough to run a profitable business doing it. Difficult as it may be, and while you may do either desktop web or native mobile apps to supplement your bottom line, it isn't something that any of us should give up on.
+
+The closing keynote from Day 1 of the conference was a great talk delivered by [Brian Fling](http://twitter.com/fling) really putting it all out there on how tough it really was.  There was a lot of knowing looks from people who have been there and done that, and while some of his examples were a little extreme, the core of his message was pretty bang on.
+
+The talk was not without hope, however, as it was carefully constructed to demonstrate how we can meet some of these challenges.  Brian's talk, combined with the closing keynote from [Jason Grigsby](http://twitter.com/grigs) really reinforced to me that seeing the mobile web (both apps and sites) succeed is really going to require all of us to "get in the boat and row".  On this topic area, I will definitely post something separately.
+
+## 2. Thoughts on Mobile Platforms
+
+We are going to start to see a shake-up in the mobile device space very soon. [RIM](http://www.rim.com/) have definitely "pulled their finger out" with the new Blackberry PlayBook and I think HP/Palm are continuing to evolve the [WebOS](https://developer.palm.com/) platform in the right direction.
+
+Unfortunately, I think Windows Phone 7 will continue to be a let down even once IE9 is pushed to the platform.  Obviously Microsoft will get there eventually, but it sounds like we are still some way off (IE10 most likely) in getting support on critical mobile web APIs such as touch events.  While I acknowledge Microsoft's stand-point (the spec is still under heavy discussion at a W3C level), it seems completely counter productive to implement hardware accelerated canvas support without having touch events implemented in the browser.  Hopefully the boys at [PhoneGap](http://www.phonegap.com/) can come up with something to correct for what I consider to be a big strategic and implementation error on Microsoft's part.
+
+Android is also doing cool things, however, my opinion is that they are potentially suffering a lack of focus.  As a platform, Android is becoming more and more powerful and is one of the first platforms showing a possible device roadmap to the [Internet of Things](https://secure.wikimedia.org/wikipedia/en/wiki/Internet_of_Things) revolution that is fast approaching.  While this is wonderful, most Android users will readily admit that the user experience on Android falls well short of iOS devices.  I personally believe that Google needs to apply more polish to the core platform before extending the capabilities of the SDK.  I might be way off, but that's my opinion.
+
+I'm not going to comment on Apple and iOS, as they still stand proud as the smartphone/tablet market leader (the PlayBook is bloody impressive mind you).
+
+Also another large area of consideration is what is happening in "lower-end" mobile space, but that is a post in itself.
+
+### Focusing your efforts as a developer
+
+Based on what I saw and the devices I checked out at Unplugged (and also some good discussions with [Dave Balmer](http://twitter.com/balmer/) at the Amped Hack day) I will be targetting the Blackberry and WebOS platforms first and foremost for mobile web apps that I have planned.  Why?  Well put simply, they appear to be embracing first class support for development using web technologies rather than just paying lip service. I consider this to be probably one of the most disturbing things that I am writing in this post, given that I wrote a book on writing mobile web apps with a specific bent towards Android.
+
+I do need to do some more thinking around this, but certainly I'm excited with developing products for application market places that aren't as crowded as some others.  Given the pain I've experienced with working with canvas on some versions of Android (yes 2.1 I'm looking at you), I won't be making getting on Android a huge priority.  Hopefully I should get iOS for free with this approach and I hope that rather than spending time working around Android quirks I'll be able to spend time thinking about how to effectively write for both the handheld and tablet form factors (yet another challenge).
+
+Obviously, client work will probably still primarily be mobile web apps in the iPhone and Android spaces, but I firmly believe that both the BlackBerry and WebOS platforms will claw back some marketshare over the next 18 months in western markets.
+
+## 3. Carrier Attempts to Re-engage Developers will likely Fail
+
+When Apple released their AppStore as the distribution channel for mobile apps, carriers got a nasty wake-up call and they very quickly found their "walled gardens" falling down around them.  Through some collaborative initiatives (such as [WAC](http://www.wacapps.net/)) the carriers are trying to draw developers back.
+
+As supportive and as keen to engage with developers as the guys from WAC are, I do believe they will really struggle to gain traction.  I believe this for a number of reasons (design by committee, platform distribution limitations, etc). Once again that's a post in itself.
+
+## 4. You should care about WebTV
+
+Given the number of potential devices, thinking about developing specific apps for WebTV is something I think will be well worth doing.  Additionally, I think if people can start to think of some ways to  write apps that behave well for both TV (using d-pad navigation) and the tablet form factor there is quite a bit of money to be made.
+
+Getting a simple overview of what is involved in building a WebTV app, I was personally thinking of multiple potential applications that I think would do very well on the platform.  Again, write the app well so it works for both tvs and tablets and you have some real money making potential in an emerging space.
+
+## Summary
+
+This is probably far from a complete list of "take-aways" that I have from Unplugged, but I do think they are probably the major ones.  
+
+Thanks again to the [webdirections](http://twitter.com/webdirections) team, the speakers and all the people who I chatted to over beer/coffee for making it such a worthwhile conference to attend - I think it's something (budget permitting) that I would definitely do again.
+
+{%endarticle%}
+
+{% endblock %}

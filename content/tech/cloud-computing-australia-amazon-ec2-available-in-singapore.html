@@ -1,0 +1,34 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: Cloud Computing Australia - Amazon EC2 available in Singapore
+created: 2010-04-29
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+Today is a fantastic day for advocates of cloud computing in Australia (and the whole Asia Pacific region actually).  Finally the Asia Pacific region has a presence for cloud computing (not just cloud content).  
+
+Great job Amazon.  In the past few years the lack of a geographically close (and thus virtually closer) hasn't worried me too much, but as I am now starting an <a href="http://www.sidelab.com/">Australian software development company that provides services in the cloud</a> - it does.
+
+{% endexcerpt %}
+
+
+Both smaller companies and larger corporates are starting to consider the cloud for deployment of different types of services.  While I certainly don't expect that core enterprise systems will be deployed to the cloud by large conservative organisations just yet, there is a great deal of potential that can be gained from building certain application or services for cloud deployment.
+
+For small businesses and innovative corporates in the US and Europe using cloud computing has been an option for some quite a few years now.  For companies in the Asia Pacific region, however, there are still a few hurdles to overcome before it becomes truly viable.  In my opinion for Australian business there are two things that still cause some wariness when it comes to cloud services:
+
+Firstly, there is the network latency to reach their cloud architecture if it is hosted in either the US or Europe.   In some cases having hosting in those regions is OK or even an advantage, but when you are primarily developing a service for a local market it really doesn't make a lot of sense.  With Amazon providing EC2 services in Singapore, that goes a long way to helping with latency from Australia and the rest of the region.
+
+Secondly, there is the issue of privacy which from what I understand of the issue relates specifically to <a href="http://www.privacy.gov.au/materials/types/infosheets/view/6583#npp9">"Transborder data flows" in the the National Privacy Principles</a>.  Whether this is genuinely an issue from a legal standpoint is not something I can comment on.  I can, however, confirm that I have observed that Australian corporates that I have been involved with would prefer to see personal information kept onshore.
+
+Obviously, having the servers in Singapore won't alleviate privacy concerns if you were to suggest storing customer data in the cloud.  Considering alternative approaches for application construction, however, might enable the use of the cloud infrastructure without compromising on the security of data.  
+
+Designing applications with that kind of architecture will be something that I'll be focusing on with <a href="http://www.sidelab.com/">Sidelab</a>.  With the amount of work that is required in the IT space over the next 10 years, it's definitely time work smarter at building our applications for scalability, and I believe the cloud has a very important part to play in that.
+
+{%endarticle%}
+
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: iPhone and Android Web Application Frameworks
+created: 2009-09-10
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+OK. My head is about to explode - which isn't that uncommon when you are as distractable as I am.  The reason for my head about to explode this time is that I have now discovered a fourth web technologies based (html, css, javascript) framework for developing iPhone (and Android usually) applications.  To be frank, I am struggling for time to do a "deep-dive" into each of these frameworks so would appreciate hearing some opinions about what to use.
+
+{% endexcerpt %}
+
+Right, first let's lay out the competition, with a brief overview of each.  I'll outline these in the order in which I discovered them:
+
+## Phonegap
+<a href="http://phonegap.com/">http://phonegap.com/</a>
+
+I first came across PhoneGap from an <a href="http://ajaxian.com/archives/phonegap-air-for-the-iphone">Ajaxian blog post</a> about a year ago now, and was very excited.  Mainly because writing applications for mobile devices is "so hot right now", but I really love my web technologies, and I'm a big fan of javascript.  It offered me my first glimpse of being able to merge the two worlds - not to mention not having to maintain multiple codebases for the myriad of mobile devices that are going to be prevalent in the market.
+
+Things I like about Phonegap:
+<ul>
+<li>Phonegap gives you access to native functions of the smartphone through creating some bridges through a native application container and some special javascript calls.  For instance, if you want to access the GPS through your javascript code that's a relatively simple thing to do (NOTE: Part of the HTML 5 specification contains a geolocation API that has already been implemented in Safari in the new iPhone 3GS and upgrade OS).</li>
+<li>Using phonegap will still allow you to publish an application to the AppStore (in theory - see below)</li>
+</ul>
+
+Things that I don't like about Phonegap:
+<ul>
+<li>Apple are rejecting some applications written using PhoneGap.  As I understand it this is due to the fact that once you have a PhoneGap application installed, you could reasonably easily extend the capabilities of that application simply by changing some code at an external web location.  This means you can change the functionality of the application without having to route the application request through the AppStore.  I'm not sure if this is resolved as yet, or whether I have the issue correct, but would be interested to hear more.</li>
+</ul>
+
+## RhoMobile
+<a href="http://rhomobile.com/">http://rhomobile.com/</a>
+
+I became aware of RhoMobile through monitoring some of the chatter around the PhoneGap AppStore rejections.  It's another interesting application framework and uses a combination of HTML and Ruby to deliver native applications on the iPhone (and other smartphones).
+
+Things I like about RhoMobile:
+<ul>
+<li>Like PhoneGap, RhoMobile provides access to the lower level functions of the device such as GPS, while not making you code in Objective C.</li>
+<li>Applications written in RhoMobile seem to get published through the AppStore just fine (from what I hear).</li>
+</ul>
+
+Things that I don't like about RhoMobile:
+<ul>
+<li>It uses Ruby.  There, I said it.  I'm not a Ruby fan - I prefer Python anyday - mainly because I am actively using <a href="http://conceptualadvantage.com/grow-your-concept/google-appengineconcept-prototyping-playground/">Google AppEngine</a> to write web applications right now and I'm using Python for that.</li>
+<li>Something else I can't put my finger on... you know how it is.</li>
+</ul>
+
+## jQTouch
+<a href="http://jqtouch.com/">http://jqtouch.com/</a>
+
+I came across jQTouch from the <a href="http://ajaxian.com/archives/jqtouch-releases-new-version-of-mobile-goodness">Ajaxian Blog</a> (Yes - it's an excellent blog, if you haven't subscribed then do it).  jQTouch is essentially a <a href="http:/jquery.com/">jQuery</a> plugin that makes simple web applications or just straight HTML feel like a native iPhone application.  It's a very simple, but effective approach.
+
+Things I like about jQTouch:
+<ul>
+<li>It's really easy to get started, and deploying an application to the iPhone is also easy.</li>
+<li>It is written as a jQuery plugin, and well I love jQuery.</li>
+</ul>
+
+Things I don't like about jQTouch:
+<ul>
+<li>It's not an application framework designed for building AppStore deployable applications.  I know this is contrary to one of the things I like, but it is something to consider.   I'm sure you could fairly simply wrap your application up for AppStore deployment though (maybe - could you?).</li>
+<li>Access to the lower level functions of the device is not provided (except for the GPS, because as mentioned before the new OS permits access to the GPS through the HTML5 geolocation API)</li>
+</ul>
+
+## Appcelerator
+<a href="http://www.appcelerator.com/">http://www.appcelerator.com/</a>
+
+I just came across this today, from reading through a reply on <a href="http://twitter.com/jonathanstark">@jonathanstark</a>'s twitter stream (he's writing a book about all this stuff it would seem).  Now I've only just finished the screencast, and I have to say um, wow.  This looks really great...  the ability to build desktop applications is in there as well.  Man, if this framework delivers then I'm likely to have another life-changing developer moment (last one was AppEngine, and before that it was jQuery).
+
+Things I like about Appcelerator:
+<ul>
+<li>The ability to build desktop and mobile applications using very similar approaches.</li>
+<li>The ability to use Python or Ruby - thank you for providing choices.</li>
+<li>They dogfood their framework - the Appcelerator development environment is itself an Appcelerator application.  Kudos.</li>
+<li>Developer tools available for Linux, Mac and Windows.</li>
+<li>Access native functionality of both the iPhone and Android handsets, as per PhoneGap.</li>
+</ul>
+
+Things I don't like about Appcelerator:
+<ul>
+<li>You so get the feeling that you can almost do iPhone development without having to go and buy a Mac, but alas it isn't so.  If you want to develop iPhone applications you will need a Mac, XCode and the iPhone SDK 3.0</li>
+<li>The ability to use Python (and Ruby) scripting is limited to desktop applications.</li>
+</ul>
+
+## Conclusion
+While I have probably prevented imminent head explosion just by writing this post, your opinions and experience would be invaluable as the only toolkit I have used to any extent yet is jQTouch (I am, however, about to run up and start playing with Appcelerator).
+
+Without a doubt, after what I have just seen I am definitely leaning towards using Appcelerator, primarily because it caters to my needs (runs well on Linux, with the exclusion of iPhone development, ability to access Python scripting).
+
+So now, do I start trying to talk my wife into letting me buy a new MacBook Pro 13" Notebook so I can build and deploy native iPhone applications with Appcelerator, PhoneGap or RhoMobile?  Or do I pig-headedly stay true to my roots, stick with Linux and build iPhone and Android friendly web applications with jQTouch?
+{%endarticle%}
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: Mobiflex - Another Mobile UI Library
+created: 2010-11-22
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+I not sure quite how to say this, so I'll just try coming straight out with it.  "I, um, kinda created another mobile UI library".  Yes, I know - crazy.  What was I thinking?  
+
+Look, in my defence, I haven't just done this without picking up and trying just about every other mobile UI library out there.  And most of them actually do a really top-notch job.  I guess my only problem is that there is one particular thing that I needed to achieve and nothing effectively took care of it for me.  Let me provide a little background (cue - swirly back in time thing).
+
+{% endexcerpt %}
+
+## The History, Requirements and UI Framework Options
+
+Basically through <a href="http://www.sidelab.com">Sidelab</a> I had constructed a mobile web application using <a href="http://tile5.org/">Tile5</a> for a client and this web application was going to be presented as part of a native application through a UIWebView.  Pretty text book stuff really.  Unfortunately, things didn't quite go to plan and the native wrapper application isn't happening right away, and rather than just implement a simplified native wrapper application the client's preference is to deploy the application to the web 'naked'.  
+
+Based on the previous experience with the native wrapper, they are pretty keen on the tabbed navigation bar that is available as part of building a native iPhone application.  After having used <a href="http://www.sencha.com/products/touch/">Sencha Touch</a> to build the <a href="http://sandbox.tile5.org/photoexplorer">Tile5 Photo Explorer</a> I knew the building blocks were available in CSS3 and webkit to create the required control, but it wasn't going to come for free (effort wise).  
+
+Why not just use Sencha Touch?  Well, primarily because I had already built a lot of the code using jQuery and the size of the JS and CSS for this particular application was already about as much as I was comfortable with (smaller = better obviously).  Sencha Touch provides an extremely robust Mobile UI framework (probably the best) but the size of the JS + CSS even minified and gzipped is pretty big, and while I'm sure I could have looked at a custom build, my gut said no.
+
+In the early stages of the application build, I had been using <a href="http://jqtouch.com">jQTouch</a> heavily and the originally application was presented with a very standard jQTouch look and feel.  After some discussions with the client though, there was a desire to have a more unique UI for the application - one that would require more than just applying another jQTouch theme to the app.  This meant a lot of surgery on the jQTouch CSS to remove conflicting CSS rules (mainly around list elements), etc, but we got there.  This meant by the time it came to implement the 'pure web' interface the dependency on jQTouch was greatly reduced.
+
+## What about other existing frameworks?
+
+<a href="http://jquerymobile.com">jQuery Mobile</a> - promising framework, alpha release though (not fit for client build yet), and doesn't cater for the particular need.  
+
+<a href="http://joapp.com">Jo</a> - <a href="http://twitter.com/#!/balmer">Dave Balmer</a> is doing some very cool things with Jo, and I'm not sure, but I think he has a "WebOS-like" equivalent to the iOS tabbed navigation.  Still, while my younger brother, <a href="http://twitter.com/#!/liamoehlman">Liam Oehlman</a> has been enjoying working with Jo on his <a href="http://tile5geochat.appspot.com/">Tile5 Geo Chat Application</a>, I prefer a more markup based UI than declarative Javascript based.  
+
+_You can't argue with the results of the declarative frameworks though, both Jo and Sencha Touch produce very solid interfaces._
+
+## Mobiflex is born
+
+So where does that leave me?  Unhappy, discontent and having to write my own code.  Thankfully I do enjoy coding and learning more about CSS3 so <a href="http://sidelab.github.com/mobiflex/">Mobiflex</a> is born.  
+
+After building the basics of what was required for the client application, I spent probably a bit too much of my own time polishing it up to handle other use cases and "frameworkizing it" so I can use it again in the future.  It's <a href="http://github.com/sidelab/mobiflex">available on Github</a> under an MIT license so feel free to play with it if you want.  If you are interested in how it differs from the current frameworks, then feel free to read on as I will cover that briefly.
+
+## Mobiflex Design - CSS3 Flexbox Layout
+
+Essentially, Mobiflex is designed around utilising the <a href="http://dev.w3.org/csswg/css3-flexbox/">CSS3 Flexible Box Layout</a> as much as possible to control layout.  In my personal experience, I have found absolute and fixed positioned elements do tend to cause some grief and so the need for these has been minimized.  For a good intro to flexbox, check out <a href="http://twitter.com/#!/paul_irish">Paul Irish's</a> <a href="http://www.html5rocks.com/tutorials/flexbox/quick/">article on html5rocks</a>.
+
+Another thing that I do in Mobiflex is to use <a href="http://www.w3.org/TR/2003/CR-css3-color-20030514/#hsla-color">HSLA colour values</a> wherever possible, and alpha gradients with the goal of providing someone using mobiflex as much colour customization as possible by just using the _background-color_ attribute.  This means rather than having to stuff around with the gradient syntaxes in application stylesheets.  The <a href="http://sidelab.github.com/mobiflex/"> Mobiflex pages on Github</a> show an example of this.
+
+<a href="http://webkit.org/blog/181/css-masks/">Webkit CSS masks</a> also get a guernsey as these things are purely magical, but can be fussy.  To be honest, if anyone has experience out there with masks I could use some tips as to why I am seeing inconsistent results in Chrome :/
+
+Finally, Mobiflex puts a heavy emphasis on *playing nice with others*.  For instance, include the excellent <a href="http://cubiq.org/iscroll">iScroll library by Cubiq</a> to support scrolling interfaces when using the tabbed navigation interface.  
+
+The overall goal of mobiflex is not to do everything, but to handle some of the really common stuff well, so you can focus on actually building your app interface. 
+
+## Disclaimers
+
+1 - Mobiflex is really new, and uses some pretty new stuff in browsers. 
+
+2 - I consider Mobiflex more of a personal project rather than an official Sidelab project / product (for comparison, I consider <a href="http://tile5.org/">official</a>).  This doesn't mean I won't try and help out, I will, but I'm just so busy at the moment it might be tough. 
+
+3 - You need to know CSS3 and other stuff if you are going to even think about using Mobiflex.  If you are just getting started with Mobile User interfaces and CSS3, I'd probably recommend going elsewhere, and any of the UI frameworks that I mentioned earlier are excellent choices.
+
+4 - It's in flux - If I need to break something to suit the needs of this current client project or my goals for world domination, then I will.  You should however, feel free to <a href="http://github.com/sidelab/mobiflex">fork the project on Github</a> and have a play.  If nothing else, there is some interesting stuff in the CSS that is worth a look.
+
+## Acknowledgements and Thanks
+
+I would like to extend thanks to the following people, as either directly or indirectly they have making Mobiflex a whole lot simpler:
+
+<ul>
+<li><a href="http://twitter.com/#!/jordandobson">Jordan Dobson</a> - Definitely check out his work on <a href="http://jordandobson.com/webkit_tab_bar_gradients/">iOS gradients</a> and his <a href="http://jordandobson.com/webkit_mask_iphone_nav/retina/">iOS nav bar</a>.  The gradient is used in Mobiflex.
+</li>
+<li><a href="http://twitter.com/#!/davidkaneda">David Kaneda</a> - David's work on both <a href="http://jqtouch.com">jQTouch</a> and <a href="http://www.sencha.com/products/touch/">Sencha Touch</a> has had a massive impact in mobile UI land.  <a href="http://twitter.com/#!/jonathanstark">Jonathan Stark</a> also deserves a shout-out for taking on the maintenance of jQTouch.</li>
+<li><a href="http://twitter.com/#!/cubiq">Matteo Spinelli</a> - for creating <a href="http://cubiq.org/iscroll">iScroll</a> and writing it in a way that makes integrating it really easy.</li>
+<li><a href="http://twitter.com/#!/paul_irish">Paul Irish</a> - for writing that afore mentioned article on the flexbox.  If you ask me, the flexible box layout is going to be big :)</li>
+</ul>
+
+## Any Questions?
+
+If you have any questions or comments regarding Mobiflex, CSS3, or anything, feel free to leave them here.
+
+{%endarticle%}
+
+{% endblock %}

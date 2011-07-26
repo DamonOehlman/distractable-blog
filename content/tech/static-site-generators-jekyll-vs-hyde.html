@@ -1,0 +1,92 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: Static Website Generators - Jekyll vs Hyde
+created: 2011-07-26
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+About 6 months ago (I think...) I converted this blog from a Wordpress driven solution to a 
+static site built with the excellent static generator, [Jekyll](https://github.com/mojombo/jekyll).
+I was in heaven.  I could write my blog posts in [Markdown](https://secure.wikimedia.org/wikipedia/en/wiki/Markdown)
+and in general feel more productive when blogging.  Though recently, I've taken a turn to the 
+dark-side of static site generators in Jekyll's alter ego, [Hyde](https://github.com/lakshmivyas/hyde).
+
+{% endexcerpt %}
+
+## Jekyll
+
+Full credit goes to [Tom Preston-Werner](http://twitter.com/#!/mojombo) for Jekyll.  It's lightweight,
+works well and does exactly what it says on the box.  It is, however, written in Ruby.  
+Now us "non-Ruby developers" really do owe a debt of gratitude to those who do tinker with that
+shiny red gem of a language, as in general, they have raised the bar on tooling in a number of areas.
+Static website generation being one of them.
+
+In general, Jekyll does an excellent job of creating a static site from a variety of input formats. You 
+can write pages in Markdown, Textile (and others) and with some YAML front-matter have a pretty intelligent
+page created.  
+
+Also, the amount of [documentation around migrating to Jekyll](https://github.com/mojombo/jekyll/wiki/Blog-Migrations)
+is impressive. 
+
+All in all, Jekyll is an excellent solution if you are looking for a simple static site generator.
+
+## Hyde
+
+Hyde, while inspired by Jekyll does things slightly differently.  While Jekyll's preferred approach is to 
+convert and process all the folders within a directory (with the exception of special `_` folders), Hyde
+will only parse the files stored within the designated `content` directory.
+
+These content files are parsed through Hyde's processing engine and then pushed into a `deploy` folder
+along with files from a `media` folder.  The processing engine uses the [Django template language](https://docs.djangoproject.com/en/dev/topics/templates/)
+to process the files against templates stored in a `layout` folder.
+
+The way that Hyde does this _django-like_ template processing is probably the main reason I have moved
+across to it. Using the django templating engine as a core piece of the site generator means that
+even those "slightly tricky things" aren't that hard to do.  Where using Jekyll I found myself
+writing plugins to achieve certain outcomes, when using Hyde most things can be achieved using 
+djangos templating language.  Which is pretty powerful.
+
+Other things that set Hyde apart are:
+
+* the seperation of the `content` and `deploy` directory which make managing the site as it 
+grows simpler, IMO.
+
+* the inclusion of pre-processors that mean you can use things like [{less}](http://lesscss.org/)
+as a CSS preprocessor. Happy days :)
+
+## Which is Right for You - Jekyll or Hyde?
+
+For me the choice is definitely Hyde.  This is because:
+
+* I am happy hacking around in both python and django templates
+* I really, really like using {less}
+* The separation the `content` directory stops me getting too confused...
+* I can still use markdown through the `markdown` template tags :)
+
+
+While I can't see myself using Jekyll again in the future (now I've found Hyde), I do 
+think it is a great fit for those people who really want to build a site writing either pure
+Markdown or Textile.  Additionally the [Github Pages](http://pages.github.com/) integration 
+with Jekyll is very nice.  Given that Hyde generates a static site though, there is nothing
+stopping you uploading that into github either.
+
+For some, it will simply come down to a ruby vs python thing.
+
+## Where to from here?
+
+Well there's still a lot to learn about Hyde. It's a great solution so I'm going to continue
+to use it and explore what it can do.  In terms of the blog - it's been converted across and 
+is now running behind a lightweight [Go](http://golang.org/) wrapper on the 
+[Google AppEngine Go Runtime](https://code.google.com/appengine/docs/go/overview.html).
+
+The [Sidelab site](http://www.sidelab.com/) is to receive the same treatment. I'm enjoying hacking
+around with Go too, but that's another post entirely...
+
+{%endarticle%}
+
+{% endblock %}

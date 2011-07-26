@@ -1,0 +1,112 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: Mobile UI Frameworks - Declarative vs Markup Based
+created: 2010-11-23
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+Still plugging away on the <a href="http://apress.com/book/view/1430232765">Android Web Apps book</a> for Apress (yes, I'm behind schedule now - even with some great assistance from co-author <a href="http://twitter.com/#!/sebi2706">Sébastien Blanc</a>).  In the midst of the 2nd last chapter I am writing now, and the topic is around the various mobile UI frameworks that are available.
+
+So here's the question.  Is it right to label UI javascript frameworks as either "declarative" or "markup based".  A quick search on the web turns up very little discussion on the topic, and while I have discussed this at length with some very smart people, the absence of information is a little unnerving... Am I just making stuff up, or do we as developers actually use those terms but never discuss them online?
+
+{% endexcerpt %}
+
+If you are unfamiliar with the terms (or my particular definition of them at least), here is how I describe each different type briefly:
+
+## Declarative Javascript UI Framework
+A declarative UI framework very much focuses around generating HTML markup at runtime using Javascript code.  Good examples of this approach in the mobile UI space are both <a href="http://www.sencha.com/products/touch">Sencha Touch</a> and <a href="http://joapp.com/">Jo</a>.  
+
+For instance, creating some UI elements in Jo looks like this:
+
+{% syntax javascript %}
+var x = new joScreen([
+    new joNavbar(),
+    new joStack(),
+    new joToolbar()
+]);
+{% endsyntax %}
+
+Sencha Touch uses a similar approach, here is a snippet from my <a href="http://sandbox.tile5.org/photoexplorer">Photo Explorer</a>:
+
+{% syntax javascript %}
+var actionBar = new Ext.Toolbar({
+    dock: 'top',
+    xtype: 'toolbar',
+    ui: 'light',
+    defaults: {
+        iconMask: true
+    },
+    layout: {
+        pack: 'justify'
+    },
+    items : [{
+        text: 'Back',
+        ui: 'back',
+        id: 'goback',
+        disabled: true,
+        handler: goBack
+    }, {
+       xtype: 'spacer'
+    }, {
+       xtype: 'panel',
+       html: 'h1. Photo Explorer
+
+'
+    }, {
+       xtype: 'spacer' 
+    }, {
+        text: 'Random',
+        handler: viewRandomTile
+    }]
+});
+{% endsyntax %}
+
+So you get the gist - basically write Javascript, get HTML which then renders the UI.
+
+## Markup Based UI Framework
+In a markup based UI framework, you commonly create define the UI layout using pure HTML with appropriate CSS classes littered throughout.  The CSS classes perform two functions:
+
+<ul>
+<li>Firstly, as you would expect, they are used to apply look and feel to the UI by way of accompanying stylesheet(s).</li>
+<li>Secondly, they provide markers that the accompanying javascript files in the UI framework can use to _post-process_ the HTML and attach relevant event handlers.</li>
+</ul>
+
+Examples of markup based mobile UI frameworks are <a href="http://jqtouch.com/">jQTouch</a> and <a href="http://jquerymobile.com">jQuery Mobile</a>.  I guess <a href="/coding/another-mobile-ui-library/">my hobby project</a> <a href="http://github.com/sidelab/mobiflex">Mobiflex</a> is another example of a markup based UI framework as well.
+
+Displayed below, is an example of how the some of the HTML looks in a jQTouch application (taken from the <a href="https://github.com/senchalabs/jQTouch/tree/master/demos/clock/">jQTouch clock sample</a>).
+
+{% syntax html %}
+<div id="jqt">
+    <div id="home">
+        <div class="toolbar">
+            h1. World Clock
+
+
+            <a href="#info" class="button leftButton flip">Info</a>
+            <a href="#add" class="button add slideup">+</a>
+        </div>
+        <div id="clocks">
+        </div>
+    </div>
+    <div class="form" id="add">
+    </div>
+</div>
+{% endsyntax %}
+ 
+In this snippet, some of the CSS classes exist for purely for look and feel customization (e.g. _button_), while others (_flip_ and _slideup_) provide information to the accompanying Javascript that particular page transitions should be used when going to the destination page. So all three things work together to generate the functional UI.
+
+Examples in jQuery Mobile look quite similar, so I haven't included one but would be happy to if it's desired.
+
+## Your Opinion Required
+What I am really after here if readers can oblige is either a validation or disagreement (and perhaps even discussion) around the terms "declarative" and "markup-based" as effective terms to use when speaking about the frameworks.  I would rather have some discussion prior to putting the terms in print and having people just think _"What on earth is that guy on about"_.
+
+If you feel compelled then feel free to add your two cents in regarding preferences for using either declarative or markup-based frameworks as that's always an enjoyable discussion :)  Personally, I tend to fall on the side of the markup-based frameworks, but I can see why some people prefer the declarative style.
+
+{%endarticle%}
+
+{% endblock %}

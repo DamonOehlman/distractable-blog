@@ -1,0 +1,105 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: Javascript Builds - Beyond Concatenation
+created: 2011-01-05
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+For a while now I have been using <a href="http://ant.apache.org/">ANT</a> to do a <a href="https://github.com/sidelab/tile5/blob/v0.9.4/build.xml#L93">simple concatenation style build</a> but that was starting to show it's limits.  It was time to endure some "short term pain" to get a better result and change the <a href="http://www.tile5.org/">Tile5</a> build process.
+
+{% endexcerpt %}
+
+## Dependency Management in Javascript
+
+While I have the intention of possibly writing my own build tool purely in Javascript (<a href="https://github.com/sidelab/jsget">watch this space</a>) for the moment there are some excellent tools available in Ruby (amongst others).
+
+Two very similar options are <a href="http://cjohansen.no/en/ruby/juicer_a_css_and_javascript_packaging_tool">Juicer</a> and <a href="http://www.getsprockets.com/">Sprockets</a>.  While at first I felt that Juicer was going to be the best fit for me, I ended up trying Sprockets and so far haven't looked back.  Both tools provide a mechanism for using a Javascript comment to specify that a Javascript file should be included during the build process, and while the two tools use different syntaxes the results are much the same.
+
+In terms of features the tools are also very similar, but my vote goes to Sprockets because of it's <a href="http://www.getsprockets.com/installation_and_usage#specifying_dependencies_with_the_require_directive">more complete dependency management</a>.
+
+## Shell Scripts seal the deal
+While it does mean that your build process is no longer Windows friendly, adding a shell script to run the <a href="http://www.getsprockets.com/installation_and_usage#using_sprocketize_from_the_command_line">sprocketize</a> command-line utility means that your builds are a breeze.
+
+{% syntax bash %}
+SPROCKET_OPTS="-I build -I /development/projects/github/ -I /development/projects/github/sidelab/"
+MINIFY=$1
+
+: ${MINIFY:=false}
+
+for variant in lite geo
+do
+    echo "Building Tile5 Variant: $variant"
+    
+    # copy the variant specify options to the options file
+    cp src/tile5.$variant.js src/tile5.variant.js
+    
+    # sprocketize the source
+    sprocketize $SPROCKET_OPTS src/tile5.js > dist/tile5.$variant.js
+
+    # minify
+    if $MINIFY; then
+        java -jar build/google-compiler-20100629.jar \
+             --compilation_level SIMPLE_OPTIMIZATIONS \
+             --js_output_file dist/tile5.$variant.min.js \
+             --js dist/tile5.$variant.js
+    fi;
+         
+    # delete the opts file
+    rm src/tile5.variant.js
+done;
+
+# the main variant is the geo variant so copy that to tile5.js
+cp dist/tile5.geo.js dist/tile5.js
+cp dist/tile5.geo.min.js dist/tile5.min.js
+{% endsyntax %}
+
+The above shell script is a snapshot of the <a href="https://github.com/sidelab/tile5/blob/master/build.sh">one I now use</a> to build Tile5.  I sure someone with more shell scripting skill will be able to improve this significantly but it's a start.  Using the above script allows me to build Tile5, along with dependencies from <a href="http://github.com/sidelab/cog/">COG</a> and <a href="http://github.com/sidelab/interact">Interact</a> without breaking a sweat.  Prior to using Sprockets the build process was painful if I needed to make any changes in one of the other libraries (only COG at that time) as the COG dependencies were pulled from github.  Admittedly this could have been improved without having to involve Sprockets, but Sprockets makes it simpler.
+
+## Towards more Reusable Javascript
+
+Moving away from a purely concatenation based build process, and embracing some kind of dependency management really does make it simpler to write clientside Javascript in a more reusable way (folks playing on the server-side or command-line should investigate <a href="http://www.commonjs.org/">CommonJS</a>).
+
+Add a pinch of distributed version control (I recommend <a href="http://gitscm.org/">git</a> and <a href="http://github.com/">GitHub</a>) and things really start to sing once you make intelligent use of the Sprockets @require@ directive using load paths:
+
+{% syntax javascript %}
+//= require <prototype>
+{% endsyntax %}
+
+I basically go with a folder structure where most github repos that I use or follow are centralized in a single folder, with my own libraries existing in a sidelab sub-folder off that.
+
+## What about Packing
+Minifying your Javascript for production really is a must, and if you want a no-brainer solution then you might want to go for Juicer over Sprockets, as Juicer provides packing support via the <a href="http://yuilibrary.com/downloads/#yuicompressor">YUI Compressor</a>.  I have a preference for <a href="https://code.google.com/closure/compiler/">Google's Closure Compiler</a> so I wasn't swayed, and considering how easy it is to kick off closure from the command-line it's hardly a deal breaker.  While I have included the Closure compiler JAR in the source repo for Tile5, I moved away from this for Interact and simply reference a shared instance of the compiler (which makes more sense I think).
+
+{% syntax bash %}
+SPROCKET_OPTS="-I build -I /development/projects/github/sidelab/"
+CLOSURE_COMPILER="/development/tools/javascript/closure/compiler.jar"
+MINIFY=$1
+
+: ${MINIFY:=false}
+
+# sprocketize the source
+sprocketize $SPROCKET_OPTS src/interact.js > interact.js
+
+# minify
+if $MINIFY; then
+    java -jar $CLOSURE_COMPILER \
+         --compilation_level SIMPLE_OPTIMIZATIONS \
+         --js_output_file interact.min.js \
+         --js interact.js
+fi;
+{% endsyntax %}
+
+## Where to from here?
+
+Over the next few days I will be continuing to tweak the way my javascript libraries are built, paying specific attention to <a href="http://github.com/sidelab/cog">COG</a>.  With some minor modifications I should be able to liberate individual sections of the library without needing the rest of it (which was the idea in the first place).
+
+While I'm very happy with the build process moving forward, I would also be interested in hearing about other potential improvements (or questions).
+
+{%endarticle%}
+
+{% endblock %}

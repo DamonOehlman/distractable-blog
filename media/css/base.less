@@ -1,0 +1,242 @@
+.box-shadow(@params) {
+    -webkit-box-shadow: @params;
+    -moz-box-shadow: @params;
+    -o-box-shadow: @params;
+    box-shadow: @params;
+}
+
+.border-radius(@params) {
+    -webkit-border-radius: @params;
+    -moz-border-radius: @params;
+    border-radius: @params;
+}
+
+.transform(@params) {
+    -webkit-transform: @params;
+    -moz-transform: @params;
+}
+
+html {
+    background: #f3f4ee url(../img/distractable-bg.png) repeat-y;
+    font-family:  'Maven Pro', Arial, sans;
+}
+
+body {
+    background: url(../img/distractable-bot.png) 10px 10px no-repeat;
+    margin: 10px 0 0 0;
+    
+    * {
+        -webkit-transition: opacity ease-in-out 0.2s;
+    }
+}
+
+a {
+    color: #2c5aa0;
+    text-decoration: none;
+    
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+h1 {
+    font-size: 1.4em;
+    color: #5d6c53;
+    margin: 0;
+    text-shadow: #aaa 0px 1px 1px;
+}
+
+h2, h3, h4 {
+    font-size: 1.2em;
+    margin: 0 0 6px 0;
+}
+
+h4 {
+    font-size: 1.05em;
+    color: #777;
+    margin-top: 4px;
+}
+
+header {
+    margin: 10px 20px 0px 470px;
+    padding: 15px 0 0px 0;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.8em;
+    
+    a.logo {
+        display: block;
+        height: 32px;
+        background: url(../img/distractable-logo.png) no-repeat;
+        margin: 25px 0 0 0;
+        padding: 0 0 5px 0;
+    }
+    
+    span.site-tag {
+        display: block;
+        border-bottom: 2px dashed #333;
+        padding: 0 0 10px 0;
+        font-size: 1.1em;
+        text-transform: lowercase;
+    }
+}
+
+.content {
+    margin: 30px 20px 0 470px;
+    min-height: 500px;
+    
+    p {
+        margin: 0 0 10px 0;
+    }
+    
+    img {
+        border: 2px solid white;
+        .box-shadow(#333 0 0 2px);
+    }
+}
+
+footer {
+    border-top: 2px dashed #333;
+    color: #333;
+    margin: 0 20px 10px 470px;
+    padding: 10px 0 0 0;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.85em;
+}
+
+ul {
+    margin: 0 0 10px 0;
+    padding: 0 0 0 22px;
+}
+
+ul.reset {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+ul.sitenav {
+    li {
+        display: inline;
+        margin: 0 4px 0 0;
+        
+        a {
+            border: 2px solid #333;
+            padding: 2px 6px 4px;
+            text-decoration: none;
+            color: #333;
+            
+            &:hover {
+                background: #888;
+                color: white;
+            }
+        }
+    }
+}
+
+ul.breadcrumbs {
+    margin: 10px 0 0 0;
+    
+    li {
+        display: inline;
+    }
+    
+    .separator {
+        color: #918a6f;
+        display: inline-block;
+        padding: 0 5px;
+    }
+}
+
+.post-bar {
+    font-size: 0.8em;
+    margin: 4px 0 0 0;
+    
+    .post-date {
+        vertical-align: top;
+        display: inline-block;
+        padding: 2px 0 0 0;
+    }
+}
+
+#post-content {
+    margin: 10px 0;
+}
+
+ul.postdate {
+    float: left;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    padding: 0 10px 0 0;
+    color: #999;
+    
+    li {
+        margin: 0;
+        padding: 0;
+    }
+    
+    li.year {
+        font-size: 0.6em;
+    }
+    
+    li.day {
+        font-size: 1.6em;
+    }
+    
+    li.month {
+        font-size: 0.9em;
+    }
+}
+
+code, .highlight {
+    background: #f2f2f2;
+    padding: 0 6px;
+    border: 2px solid #e2e3db;
+    .border-radius(4px);
+}
+
+.highlight {
+    padding: 8px 14px;
+    
+    pre {
+        margin: 0;
+    }
+}
+
+.sidebar {
+    color: #333;
+    position: absolute;
+    left: 120px;
+    top: 360px;
+    width: 300px;
+    text-align: justify;
+    font-size: 0.9em;
+    opacity: 0.35;
+    
+    p {
+        margin: 0 0 10px 0;
+    }
+    
+    &:hover {
+        opacity: 1.0;
+    }
+}
+
+.twitter-share-button {
+    margin: 0 0 0 5px;
+    display: inline-block;
+}
+
+@media screen and (max-width: 800px) {
+    html, body {
+        background: #f3f4ee;
+    }
+    
+    header, .content, footer {
+        margin-left: 20px;
+    }
+    
+    .sidebar {
+        display: none;
+    }
+}
