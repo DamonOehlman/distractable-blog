@@ -1,0 +1,235 @@
+{% extends "_post.html" %}
+
+{%hyde
+title: Experiments with LevelDB
+created: 2011-08-03
+%}
+
+{% block article %}
+
+{% article %}
+{% excerpt %}
+
+It was an interesting day today. I am currently neck-deep in a client project which makes
+use of [NodeJS](http://nodejs.org) in what is becoming a pretty standard kind of 
+configuration for [Sidelab](http://www.sidelab.com/) projects.
+
+While I won't go into the architecture here (I'll save that for when I finally get the Sidelab 
+Blog online), I want to briefly talk about some of my experiences today with 
+[leveldb](http://code.google.com/p/leveldb/).
+
+{% endexcerpt %}
+
+LevelDB is a pretty impressive piece of kit, IMO.  It's light, fast and simple to use. That is, if 
+you want a gutsy little file-based key value store.  While it's most obvious use is probably for 
+a simple [NoSQL](https://secure.wikimedia.org/wikipedia/en/wiki/NoSQL) container, I wanted to 
+do something a little different with it.
+
+## Potential for LevelDB as a Changelog / Journal
+
+Essentially, my thoughts were to use leveldb as a journal for updates that have been made in what we 
+are designing to be a highly-available architecture. In the current application being built on the
+Sidelab "nodeSTACK", we use [PostgreSQL](http://www.postgresql.org/) to take advantage of the excellent
+[PostGIS](http://postgis.org/) for geospatial queries required for our application.
+
+Why not just use standard Postgres master/slave replication you ask? Well that was definitely an option,
+but I really want to avoid introducing a [single point of failure](https://secure.wikimedia.org/wikipedia/en/wiki/Single_point_of_failure) 
+into the system architecture.  Additionally, while our level of PostgreSQL expertise is growing we
+aren't a company of database administrators, so attempting to become proficient with the likes of 
+[Slony-I](http://slony.info/) or [Bucardo](http://bucardo.org/) would mean taking our relationship with
+Postgres to the "next level".
+
+By using a distributed leveldb journal we could rebuild the system in event of failure, and theoretically 
+distribute those journals to other machines in the system.  The concept relies on the fact that leveldb
+is in fact a __sorted__ key value store and we would use high resolution timestamps coupled with a generated
+instance id for the key.  The idea was to store JSON as the value which would then be distributed and acted
+on the other systems.
+
+## The thing with Distributed Systems...
+
+As per usual with exercises that I attempt, I tend to bite off more than I can chew.
+
+Distributed systems are far from simple beasts and while I think the general concept of leveldb as a journal store has merit it is 
+something I lack both the time and grey matter to complete effectively.  If you are interested, then once
+I started reading up on distributed systems (after mentally exploring some of the synchronization edge cases) 
+there is quite a good [blog post on around which talks about CAP and a concept known as timeline consistency](http://dbmsmusings.blogspot.com/2010/04/problems-with-cap-and-yahoos-little.html).
+As far as I can tell, this is kind of the concept I was shooting for.
+
+For the moment I have abandoned the exercise (and I'm currently doing a [Redis](http://redis.io/) vs 
+[Riak](http://wiki.basho.com/) vs [MongoDB](http://www.mongodb.org/) comparison - Riak's winning ATM). 
+That, however, won't stop me showing you a little code integrating leveldb with NodeJS.
+
+## To the Code
+
+Talking to leveldb with NodeJS means writing NodeJS bindings to the underlying leveldb C++ library. Thankfully
+[Tim Caswell](http://twitter.com/#!/creationix) had started the process with his [node-leveldb](https://github.com/creationix/node-leveldb)
+project. Fantastic.  Let's have a look.
+
+### Creating a Database
+
+Creating a database is very simple process:
+
+{% syntax javascript %}
+var leveldb = require('node-leveldb');
+
+// create the db
+db = new leveldb.DB();
+db.open({
+    create_if_missing: true
+}, 'changelog/db');
+{% endsyntax %}
+
+### Writing an Entry
+
+Here is a snippet of code from the changelogger in our node stack:
+
+{% syntax javascript %}
+// create the entry key
+var entryKey = microtime.now().toString(),
+    value = 'test';
+
+// ensure that the entry key is left-padded with 0s to 20 characters long
+// this will ensure that entry added at time 1 is stored in the leveldb before time 123
+entryKey = (new Array(20 - entryKey.length).join('0') + 1) + entryKey;
+
+// add the additional entry key details
+entryKey += delim + stack.id + delim + entryType;
+
+// add to the db
+db.put({}, new Buffer(entryKey), new Buffer(value));
+{% endsyntax %}
+
+### Iterating through the DB
+
+As I mentioned earlier, leveldb is in fact a sorted key value store which means that you 
+can iterate over the database in addition to plucking values in and out via a key. This is 
+very handy and allows for the kind of use that I was intending.
+
+An example of iterating over the db is shown below:
+
+{% syntax javascript %}
+var iterator = db.newIterator({});
+
+for (iterator.seekToFirst(); iterator.valid(); iterator.next()) {
+    console.log(iterator.key().toString());
+} // for
+{% endsyntax %}
+
+__NOTE:__ At this stage, Tim's version of the `node-leveldb` project doesn't include support
+for iterators but I had a crack at implementing them in [my own fork of the library](https://github.com/DamonOehlman/node-leveldb).
+
+I have to say I was very impressed at how well iterators worked, and wrote a [simple test / demo](https://github.com/DamonOehlman/node-leveldb/blob/master/demo/iterator.js) 
+(code below) to validate things were working as expected.  The demo requires the [node-uuid](https://github.com/broofa/node-uuid) as
+keys are generated from uuids which demonstrates that the leveldb is quite effectively sorting.
+
+{% syntax javascript %}
+var DB = require('../build/default/leveldb.node').DB,
+    uuid = require('node-uuid'),
+    start = Date.now(),
+    entryCount = 1000000,
+    lastKey,
+    readCount = 0,
+    ii;
+
+console.log("Creating test database");
+var path = "/tmp/iterator.db";
+var db = new DB();
+db.open({create_if_missing: true}, path);
+
+console.log('!! creating ' + entryCount + ' random key entries');
+for (ii = 0; ii < entryCount; ii++) {
+    var id = uuid();
+    
+    db.put({}, new Buffer(id), new Buffer(JSON.stringify({
+        id: id,
+        name: 'Bob',
+        age: 33
+    })));
+} // for
+
+console.log('created in ' + (Date.now() - start) + 'ms');
+console.log('!! iterating db in key order');
+
+// reset the start counter
+start = Date.now();
+
+// iterate over the test database
+var iterator = db.newIterator({});
+
+for (iterator.seekToFirst(); iterator.valid(); iterator.next()) {
+    var key = iterator.key().toString('utf8');
+    
+    if (lastKey && lastKey > key) {
+        console.log('found sorting error');
+    } // if
+    
+    lastKey = key;
+    readCount++;
+} // for
+
+console.log('read sequential ' + readCount + ' db contents in ' + (Date.now() - start) + 'ms');
+
+// do some random seeking
+for (ii = 0; ii < 100; ii++) {
+    var testUUID = uuid();
+    iterator.seek(new Buffer(testUUID));
+    
+    console.log('looking for first key after: ' + testUUID);
+    
+    // if we found something the report 
+    if (iterator.valid()) {
+        console.log('FOUND: ' + iterator.key());
+    } // if
+} // for
+
+db.close();
+DB.destroyDB(path, {});
+{% endsyntax %}
+
+Which yields something similar to the following:
+
+{% syntax text %}
+damomac:node-leveldb damo$ node demo/iterator.js
+Creating test database
+
+!! creating 1000000 random key entries
+created in 32985ms
+
+!! iterating db in key order
+read sequential 1000000 db contents in 29579ms
+
+looking for first key after: 3a1150c7-bb9d-43ec-a8a5-e907a288d8d3
+FOUND: 3a116ce6-b7d2-477f-a49d-3ab364c1a86a
+looking for first key after: 92e10e68-6a1c-4e05-8f69-21419bff7e49
+FOUND: 92e11597-9825-44f4-bda5-9df9d869773b
+looking for first key after: 05f46b29-2920-4856-93d2-7501aa97b299
+FOUND: 05f474d9-eeff-4dc5-b73f-5fc4337c556a
+looking for first key after: 20d8d42a-69ee-4727-8bb1-a84ba464469e
+FOUND: 20d8dc7e-9ceb-41fc-9ec6-f8334f7de05e
+looking for first key after: 81cf6375-f082-432e-8b66-532d6d647e61
+FOUND: 81cf649b-bd7b-487e-b887-f088f8be8871
+looking for first key after: f6643ff6-3697-45a6-9c61-45c8456a6952
+FOUND: f6644a18-95b0-42fa-9b57-85b8f75f940b
+...
+looking for first key after: 5c820a4e-7d06-47d0-b644-f4a9c584be6a
+FOUND: 5c821b4a-bd0c-4dd4-b662-12a1c3bc3fa8
+{% endsyntax %}
+
+### Reading Values from the DB
+
+Reading values from the DB is essentially as simple as writing values to the db, and while 
+I don't have any sample code from todays adventure.  You can find good examples in the original 
+[node-leveldb demos](https://github.com/creationix/node-leveldb/tree/master/demo).
+
+## LevelDB Restrictions 
+
+There are a few restrictions when using leveldb (such as a db may only be safely opened by a single process
+at a time), and having a read of some of the [docs in the leveldb source](http://leveldb.googlecode.com/svn/trunk/doc/)
+is well worth your time.
+
+Still for the asking price and the ease of use, it's a pretty impressive piece of kit and I look forward
+to seeing what people do with it.
+
+{%endarticle%}
+
+{% endblock %}
